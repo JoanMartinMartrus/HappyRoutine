@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">HappyRoutine</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="e_mail">E-Mail</string>
+    <string name="e_mailOrUsername">E-Mail or Username</string>
+    <string name="password">Password</string>
+    <string name="hint">hint</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="username">Username</string>
+    <string name="log_in">Log In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="i_am_already_a_member">I am already a member</string>
+    <string name="new_here_sign_up_instead">New here? Sign up instead</string>
+    <string name="keep_me_logged_in">Keep me logged in</string>
+    <string name="happyroutine">HappyRoutine</string>
+    <string name="button_goToLogIn">Log In</string>
+    <string name="button_goToSignUp">Sign Up</string>
+    <string name="text_happyroutine">HappyRoutine</string>
+    <string name="logo_happyRoutine">Logo Happy Routine</string>
+    <string name="slogan">Enjoy improving your health</string>
+
 </resources>

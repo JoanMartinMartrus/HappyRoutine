@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:orientation="vertical"
+    android:padding="48dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="300dp"
+        android:layout_height="196dp"
+        android:contentDescription="@string/logo_happyRoutine"
+        app:srcCompat="@drawable/happy_routine_logo" />
+
+    <TextView
+        android:id="@+id/text_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:fontFamily="@font/satisfy"
+        android:text="@string/welcome_back"
+        android:textSize="30sp" />
+
+    <EditText
+        android:id="@+id/text_email"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:hint="@string/e_mailOrUsername"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/text_password"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:hint="@string/password"
+        android:importantForAutofill="no"
+        android:inputType="textPassword" />
+
+    <CheckBox
+        android:id="@+id/checkBox_keepMeLoggedIn"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/keep_me_logged_in" />
+
+    <TextView
+        android:id="@+id/button_goToLogIn"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:text="@string/forgot_your_password"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#018786" />
+
+    <Button
+        android:id="@+id/button_logIn"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="185dp"
+        android:layout_height="34dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.5"
+        android:background="@drawable/rounded_button"
+        android:maxWidth="16dp"
+        android:text="@string/log_in"
+        android:textColor="#FFFFFF"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:onClick="goToSignUp"
+        android:text="@string/new_here_sign_up_instead"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#018786" />
+
+</LinearLayout>

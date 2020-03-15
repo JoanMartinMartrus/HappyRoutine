@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/button_goToLogIn"
+        android:layout_width="176dp"
+        android:layout_height="62dp"
+
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="204dp"
+        android:background="@drawable/rounded_button"
+        android:onClick="goToLogIn"
+        android:text="@string/button_goToLogIn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#FFFFFF"/>
+
+    <Button
+        android:id="@+id/button_goToSignUp"
+        android:layout_width="174dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="100dp"
+
+        android:layout_marginEnd="100dp"
+        android:background="@drawable/rounded_button_border"
+        android:onClick="goToSignUp"
+        android:text="@string/button_goToSignUp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.814"
+        android:textColor="@color/colorPrimaryDark"/>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="164dp"
+        android:contentDescription="@string/logo_happyRoutine"
+        app:layout_constraintBottom_toTopOf="@+id/button_goToLogIn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/happy_routine_logo" />
+
+    <TextView
+        android:id="@+id/slogan"
+        android:layout_width="291dp"
+        android:layout_height="97dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_weight="1"
+
+        android:fontFamily="@font/satisfy"
+        android:text="@string/slogan"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_goToLogIn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.325"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.861" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
