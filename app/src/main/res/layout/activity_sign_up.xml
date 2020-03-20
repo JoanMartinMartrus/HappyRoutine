@@ -63,6 +63,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.5"
         android:background="@drawable/rounded_button"
+        android:onClick="goToUserInformation"
         android:text="@string/sign_up"
         android:textColor="#FFFFFF"/>
 
