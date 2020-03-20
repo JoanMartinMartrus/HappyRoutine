@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "544827625055",
+    "firebase_url": "https://happyroutine-1a42d.firebaseio.com",
+    "project_id": "happyroutine-1a42d",
+    "storage_bucket": "happyroutine-1a42d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:544827625055:android:82635117e3eff9f65815ea",
+        "android_client_info": {
+          "package_name": "com.example.happyroutine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "544827625055-o1sb4h490n285hmrqeuk778pdqtgpm4i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-CRi4pPMEw25TDzpLJrAE38Wbw--IjUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "544827625055-o1sb4h490n285hmrqeuk778pdqtgpm4i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
