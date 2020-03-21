@@ -61,6 +61,7 @@
         android:focusable="true"
         android:gravity="center_vertical"
         android:text="@string/forgot_your_password"
+        android:onClick="goToForgotPassword"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#018786" />
 
