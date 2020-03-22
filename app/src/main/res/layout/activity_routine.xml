@@ -19,7 +19,8 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/start_exercise_button" />
+        app:srcCompat="@drawable/start_exercise_button"
+        android:onClick="goToExercise"/>
 
     <ImageButton
         android:id="@+id/settings_button"
@@ -31,6 +32,7 @@
         android:background="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/settings_button" />
+        app:srcCompat="@drawable/settings_button"
+        android:onClick="goToSettings"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
