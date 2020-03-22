@@ -17,8 +17,4 @@ class user_information : AppCompatActivity() {
         setContentView(R.layout.activity_user_information)
     }
 
-    fun goToSettings(view: View) {
-        val intent = Intent(this, settings::class.java)
-        startActivity(intent)
-    }
 }
