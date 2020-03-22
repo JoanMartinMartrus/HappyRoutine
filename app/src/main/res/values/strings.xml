@@ -52,6 +52,10 @@
     <string name="email_reset_password">We will send you an e-mail with a link to reset your password.</string>
     <string name="name_surname_example">Joan Martin Martrus</string>
     <string name="name_surname_example2">Manolo Perez Ruiz</string>
+    <string name="exercise">Exercise</string>
+    <string name="diet">Diet</string>
+    <string name="statitiscs">Statistics</string>
+    <string name="social">Social</string>
 
 
 </resources>

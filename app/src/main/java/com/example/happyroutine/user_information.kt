@@ -18,7 +18,7 @@ class user_information : AppCompatActivity() {
     }
 
     fun goToUserExercise(view: View) {
-        val intent = Intent(this, exercise::class.java)
+        val intent = Intent(this, routine::class.java)
         startActivity(intent)
     }
 
