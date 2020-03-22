@@ -142,6 +142,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:padding="8dp"
-        android:text="@string/ok" />
+        android:text="@string/ok"
+        android:onClick="goToUserExercise"/>
 
 </LinearLayout>

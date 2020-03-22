@@ -17,4 +17,9 @@ class user_information : AppCompatActivity() {
         setContentView(R.layout.activity_user_information)
     }
 
+    fun goToUserExercise(view: View) {
+        val intent = Intent(this, exercise::class.java)
+        startActivity(intent)
+    }
+
 }
