@@ -1,6 +1,7 @@
 package com.example.happyroutine
 
 import android.app.PendingIntent.getActivity
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,7 +15,10 @@ class user_information : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_information)
+    }
 
-
+    fun goToSettings(view: View) {
+        val intent = Intent(this, settings::class.java)
+        startActivity(intent)
     }
 }
