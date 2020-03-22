@@ -16,4 +16,5 @@ class sign_up : AppCompatActivity() {
         val intent = Intent(this, log_in::class.java)
         startActivity(intent)
     }
+
 }

@@ -13,11 +13,11 @@ class Estadisticas_main : AppCompatActivity() {
         setContentView(R.layout.activity_estadisticas_main)
     }
     fun goToWeight(view: View) {
-        val intent = Intent(this, log_in::class.java)
+        val intent = Intent(this, Estadisticas_weight::class.java)
         startActivity(intent)
     }
     fun goToTrainningDays(view: View) {
-        val intent = Intent(this, log_in::class.java)
+        val intent = Intent(this, Estadisticas_trainning_days::class.java)
         startActivity(intent)
     }
 }

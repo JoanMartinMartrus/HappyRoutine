@@ -13,12 +13,11 @@
         android:layout_height="50dp" />
 
     <TextView
-        android:id="@+id/weight_graphic"
+        android:id="@+id/weight_graphcs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/Weight_graphic"
         android:textAlignment="center"
-        android:background=""
         android:textColor="#3641A3"
         android:textFontWeight="30"
         android:textSize="25dp"/>
