@@ -12,9 +12,10 @@
         <activity android:name=".settings"></activity>
         <activity android:name=".user_information" />
         <activity android:name=".forgot_my_password"></activity>
-        <activity android:name=".user_information" />
         <activity android:name=".sign_up" />
         <activity android:name=".log_in" />
+        <activity android:name=".routine" />
+        <activity android:name=".diet" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

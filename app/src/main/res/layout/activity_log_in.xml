@@ -76,7 +76,8 @@
         android:background="@drawable/rounded_button"
         android:maxWidth="16dp"
         android:text="@string/log_in"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF"
+        android:onClick="goToRoutine"/>
 
     <TextView
         android:layout_width="wrap_content"
