@@ -15,6 +15,7 @@
         <activity android:name=".sign_up" />
         <activity android:name=".log_in" />
         <activity android:name=".routine" />
+        <activity android:name=".exercise" />
         <activity android:name=".diet" />
         <activity android:name=".MainActivity">
             <intent-filter>
