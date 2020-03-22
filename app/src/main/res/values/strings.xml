@@ -19,6 +19,11 @@
     <string name="text_happyroutine">HappyRoutine</string>
     <string name="logo_happyRoutine">Logo Happy Routine</string>
     <string name="slogan">Enjoy improving your health</string>
+    <string name="Weight">WEIGHT</string>
+    <string name="Trainning_days">TRAINNING DAYS</string>
+    <string name="Weight_graphic">WEIGHT GRAPHIC</string>
+    <string name="ok">OK</string>
+    <string name="Weight_entry">Weight entry</string>
     <string name="age">Age</string>
     <string name="location">Location</string>
     <string name="height">Height</string>
@@ -46,5 +51,6 @@
     <string name="reset_password">Reset Password</string>
     <string name="e_mail_reset_password">E-Mail</string>
     <string name="email_reset_password">We will send you an e-mail with a link to reset your password.</string>
+
 
 </resources>
