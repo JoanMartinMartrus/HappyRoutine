@@ -25,5 +25,23 @@
     <string name="weight">Weight</string>
     <string name="platform_answer">Do you want to be part of the platform?</string>
     <string name="ok">OK</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="edit_photo">Edit photo</string>
+    <string name="eggs">Eggs</string>
+    <string name="chicken">Chicken</string>
+    <string name="onion">Onion</string>
+    <string name="bread">Bread</string>
+    <string name="tomato">Tomato</string>
+    <string name="latucce">Latucce</string>
+    <string name="olives">Olives</string>
+    <string name="milk">Milk</string>
+    <string name="oil">Oil</string>
+    <string name="tuna">Tuna</string>
+    <string name="pumpkin">Pumpkin</string>
+    <string name="lentils">Lentils</string>
+    <string name="not_wanted_food">Food I don\'t want</string>
+    <string name="chickpeas">Chickpeas</string>
+    <string name="corn">Corn</string>
+    <string name="save">Save</string>
 
 </resources>
