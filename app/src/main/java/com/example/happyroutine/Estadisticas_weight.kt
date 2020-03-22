@@ -4,23 +4,21 @@ import android.content.Context
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.juang.jplot.PlotPlanitoXY
-
 
 class Estadisticas_weight : AppCompatActivity() {
 
-    var plot: PlotPlanitoXY ?=null
+    /*var plot: PlotPlanitoXY ?=null
     var pantalla: LinearLayout?=null
     var context: Context?=null
 
     var X : FloatArray =FloatArray(4)
-    var Y : FloatArray =FloatArray(4)
+    var Y : FloatArray =FloatArray(4)*/
 
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estadisticas_weight)
-        context=this;
+       /* context=this;
         pantalla= findViewById(R.id.pantalla)
 
         X[0]=3.4f;Y[0]=2.5f;
@@ -43,6 +41,6 @@ class Estadisticas_weight : AppCompatActivity() {
 
         plot!!.SetHD(true); //ajustamos la calidad hd que suaviza bordes del grafico. por default esta desactivado
         plot!!.SetTouch(true);// activa el touch sobre el grafico no es necesario colocarlo ya que por default esta activado
-        // this.pantalla.addView(plot!!.rootView)
+        // this.pantalla.addView(plot!!.rootView)*/
     }
 }
