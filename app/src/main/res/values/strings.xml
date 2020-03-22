@@ -50,6 +50,8 @@
     <string name="reset_password">Reset Password</string>
     <string name="e_mail_reset_password">E-Mail</string>
     <string name="email_reset_password">We will send you an e-mail with a link to reset your password.</string>
+    <string name="name_surname_example">Joan Martin Martrus</string>
+    <string name="name_surname_example2">Manolo Perez Ruiz</string>
 
 
 </resources>
