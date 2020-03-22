@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:padding="48dp"
+    android:paddingTop="75dp">
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:id="@+id/weight_graphic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Weight_graphic"
+        android:textAlignment="center"
+        android:background=""
+        android:textColor="#3641A3"
+        android:textFontWeight="30"
+        android:textSize="25dp"/>
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <LinearLayout
+        android:id="@+id/pantalla"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:orientation="horizontal">
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:hint="@string/Weight_entry" />
+
+        <Button
+            android:id="@+id/button_ok"
+            android:layout_width="50dp"
+            android:layout_height="33dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/rounded_button"
+            android:maxWidth="16dp"
+            android:text="@string/ok"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+</LinearLayout>

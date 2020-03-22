@@ -19,5 +19,10 @@
     <string name="text_happyroutine">HappyRoutine</string>
     <string name="logo_happyRoutine">Logo Happy Routine</string>
     <string name="slogan">Enjoy improving your health</string>
+    <string name="Weight">WEIGHT</string>
+    <string name="Trainning_days">TRAINNING DAYS</string>
+    <string name="Weight_graphic">WEIGHT GRAPHIC</string>
+    <string name="ok">OK</string>
+    <string name="Weight_entry">Weight entry</string>
 
 </resources>
