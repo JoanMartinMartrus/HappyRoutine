@@ -25,5 +25,8 @@
     <string name="weight">Weight</string>
     <string name="platform_answer">Do you want to be part of the platform?</string>
     <string name="ok">OK</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="e_mail_reset_password">E-Mail</string>
+    <string name="email_reset_password">We will send you an e-mail with a link to reset your password.</string>
 
 </resources>
