@@ -1,4 +1,5 @@
 package com.example.happyroutine
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_log_in.*
 
-private lateinit var auth: FirebaseAuth
+lateinit var auth: FirebaseAuth
 
 class log_in : AppCompatActivity() {
 
@@ -22,16 +23,16 @@ class log_in : AppCompatActivity() {
     public override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-        updateUI(currentUser)
+        checkBox_keepMeLoggedIn.isChecked = loadCheckBox(checkBox_keepMeLoggedIn.text.toString())
+        if(checkBox_keepMeLoggedIn.isChecked) {
+            val currentUser = auth.currentUser
+            updateUI(currentUser)
+        }
     }
 
     private fun updateUI(currentUser : FirebaseUser?){
         if(currentUser != null){
             startActivity(Intent(this, routine::class.java))
-        }
-        else{
-            Toast.makeText(baseContext, "Login failed.", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -54,18 +55,15 @@ class log_in : AppCompatActivity() {
             return
         }
 
+        saveCheckbox(checkBox_keepMeLoggedIn.isChecked, checkBox_keepMeLoggedIn.text.toString())
         auth.signInWithEmailAndPassword(text_email.text.toString(), text_password.text.toString())
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
                     updateUI(user)
                 } else {
-                    Toast.makeText(baseContext, "Login failed.",
-                        Toast.LENGTH_SHORT).show()
-                    updateUI(null)
+                    Toast.makeText(baseContext, "Login failed. User not found", Toast.LENGTH_SHORT).show()
                 }
-
-                // ...
             }
     }
 
@@ -78,4 +76,18 @@ class log_in : AppCompatActivity() {
         val intent = Intent(this, forgot_my_password::class.java)
         startActivity(intent)
     }
+
+    fun saveCheckbox(isChecked: Boolean, key: String){
+        val sharedpreferences = getPreferences(Context.MODE_PRIVATE)
+        val editor = sharedpreferences.edit()
+        editor.putBoolean(key, isChecked)
+        editor.apply()
+    }
+
+    fun loadCheckBox(key: String):Boolean{
+        val sharedpreferences = getPreferences(Context.MODE_PRIVATE)
+        return sharedpreferences.getBoolean(key, false)
+    }
+
+
 }
