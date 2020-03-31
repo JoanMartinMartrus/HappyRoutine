@@ -1,2 +1,2 @@
 rootProject.name='HappyRoutine'
-include ':app', ':jplot1.0'
+include ':app'
