@@ -22,7 +22,7 @@ class log_in : AppCompatActivity() {
     }
 
     fun goToRoutine(view: View) {
-        val intent = Intent(this, routine::class.java)
+        val intent = Intent(this, Navigation_bar_main::class.java)
         startActivity(intent)
     }
 }
