@@ -18,12 +18,12 @@
         <activity android:name=".Estadisticas_weight"/>
         <activity android:name=".Navigation_bar_main"/>
         <activity android:name=".sign_up" />
-        <activity android:name=".log_in" />
         <activity android:name=".routine" />
         <activity android:name=".exercise" />
         <activity android:name=".diet" />
-        <activity
-            android:name=".MainActivity">
+
+        <activity android:name=".log_in" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

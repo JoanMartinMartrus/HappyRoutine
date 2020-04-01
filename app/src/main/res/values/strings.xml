@@ -2,7 +2,7 @@
     <string name="app_name">HappyRoutine</string>
     <string name="welcome_back">Welcome Back!</string>
     <string name="e_mail">E-Mail</string>
-    <string name="e_mailOrUsername">E-Mail or Username</string>
+    <string name="e_mailOrUsername">E-Mail</string>
     <string name="password">Password</string>
     <string name="hint">hint</string>
     <string name="forgot_your_password">Forgot your password?</string>
@@ -56,6 +56,8 @@
     <string name="diet">Diet</string>
     <string name="statitiscs">Statistics</string>
     <string name="social">Social</string>
+    <string name="text_backToLogIn">text_backToLogIn</string>
+    <string name="text_backToLogin">Go back to LogIn</string>
 
 
 
