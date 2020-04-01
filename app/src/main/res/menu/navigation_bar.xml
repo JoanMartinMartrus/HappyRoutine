@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/profile"
+        android:title=""
+        android:icon="@drawable/icon_edit_profile"/>
+
+    <item
+        android:id="@+id/exercises"
+        android:title=""
+        android:icon="@drawable/icon_exercise"/>
+    <item
+        android:id="@+id/diet"
+        android:title=""
+        android:icon="@drawable/icon_diet"/>
+    <item
+        android:id="@+id/statistics"
+        android:title=""
+        android:icon="@drawable/icon_stadistics"/>
+    <item
+        android:id="@+id/social"
+        android:title=""
+        android:icon="@drawable/icon_social"/>
+</menu>
