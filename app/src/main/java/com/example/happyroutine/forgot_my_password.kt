@@ -34,6 +34,9 @@ class forgot_my_password : AppCompatActivity() {
                 if (task.isSuccessful) {
                     Toast.makeText(baseContext, "E-mail sent", Toast.LENGTH_SHORT).show()
                 }
+                else {
+                    Toast.makeText(baseContext, "User not found", Toast.LENGTH_SHORT).show()
+                }
             }
     }
 
