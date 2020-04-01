@@ -32,11 +32,11 @@ class log_in : AppCompatActivity() {
 
     private fun updateUI(currentUser : FirebaseUser?){
         if(currentUser != null){
-            startActivity(Intent(this, routine::class.java))
+            startActivity(Intent(this, Navigation_bar_main::class.java))
         }
     }
 
-    fun goToRoutine(view: View) {
+    fun goToPrincipalView(view: View) {
         if(text_email.text.toString().isEmpty()){
             text_email.error = "Please, enter your e-mail"
             text_email.requestFocus()
@@ -74,12 +74,6 @@ class log_in : AppCompatActivity() {
 
     fun goToForgotPassword(view: View) {
         val intent = Intent(this, forgot_my_password::class.java)
-        startActivity(intent)
-    }
-
-
-    fun goToPrincipalView(view: View) {
-        val intent = Intent(this, Navigation_bar_main::class.java)
         startActivity(intent)
     }
 
