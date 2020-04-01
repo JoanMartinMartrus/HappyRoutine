@@ -13,15 +13,14 @@
         <activity android:name=".settings" />
         <activity android:name=".user_information" />
         <activity android:name=".forgot_my_password" />
-        <activity android:name=".user_information" />
         <activity android:name=".Estadisticas_main" />
         <activity android:name=".Estadisticas_trainning_days"/>
         <activity android:name=".Estadisticas_weight"/>
         <activity android:name=".sign_up" />
-        <activity android:name=".log_in" />
         <activity android:name=".routine" />
         <activity android:name=".exercise" />
         <activity android:name=".diet" />
+        <activity android:name=".log_in" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
