@@ -16,7 +16,7 @@
         app:srcCompat="@drawable/happy_routine_logo" />
 
     <EditText
-        android:id="@+id/text_email"
+        android:id="@+id/tv_text_email"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
@@ -26,17 +26,7 @@
         android:inputType="textEmailAddress" />
 
     <EditText
-        android:id="@+id/text_username"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
-        android:hint="@string/username"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/text_password"
+        android:id="@+id/tv_text_password"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
@@ -63,9 +53,9 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.5"
         android:background="@drawable/rounded_button"
-        android:onClick="goToUserInformation"
+        android:onClick="signUpAndGoUserInformation"
         android:text="@string/sign_up"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:layout_width="wrap_content"
