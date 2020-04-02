@@ -8,6 +8,7 @@ import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
@@ -58,8 +59,17 @@ class sign_up : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(tv_text_email.text.toString(), tv_text_password.text.toString())
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    startActivity(Intent(this, log_in::class.java))
-                    finish()
+                    // If SignUp is succesful, automatically, the user log in
+
+                    auth.signInWithEmailAndPassword(tv_text_email.text.toString(), tv_text_password.text.toString())
+                        .addOnCompleteListener(this) { task ->
+                            if (task.isSuccessful) {
+                                val user = auth.currentUser
+                                updateUI(user)
+                            } else {
+                                Toast.makeText(baseContext, "Something went wrong", Toast.LENGTH_SHORT).show()
+                            }
+                        }
                 } else {
                     // If sign in fails, display a message to the user.
                     Toast.makeText(baseContext, "Sign Up failed. Try again after some time /n" + task.exception.toString(),
@@ -79,5 +89,12 @@ class sign_up : AppCompatActivity() {
 
         val intent = Intent(this, user_information::class.java)
         startActivity(intent)
+    }
+
+    private fun updateUI(currentUser : FirebaseUser?){
+        if(currentUser != null){
+            startActivity(Intent(this, user_information::class.java))
+            finish()
+        }
     }
 }
