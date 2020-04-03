@@ -58,7 +58,22 @@
     <string name="social">Social</string>
     <string name="text_backToLogIn">text_backToLogIn</string>
     <string name="text_backToLogin">Go back to LogIn</string>
-
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="objectives">Objectives</string>
+    <string name="lactose_intolerant">Lactose Intolerant</string>
+    <string name="vegetarian">Vegetarian</string>
+    <string name="celiac">Celiac</string>
+    <string name="offer">Offer</string>
+    <string name="exercise_advice">Exercise advice</string>
+    <string name="diet_advice">Diet Advice</string>
+    <string name="company">Company</string>
+    <string name="needs">Needs</string>
+    <string name="gain_weight">Gain weight</string>
+    <string name="lose_weight">Lose weight</string>
+    <string name="gain_muscle">Gain muscle</string>
+    <string name="exercise_for_health">Exercise for health</string>
 
 
 </resources>
