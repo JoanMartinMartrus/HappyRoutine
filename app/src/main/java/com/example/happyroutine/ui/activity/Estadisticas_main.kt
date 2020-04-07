@@ -1,9 +1,10 @@
-package com.example.happyroutine
+package com.example.happyroutine.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.happyroutine.R
 
 
 class Estadisticas_main : AppCompatActivity() {

@@ -1,10 +1,14 @@
-package com.example.happyroutine
+package com.example.happyroutine.ui.activity
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.happyroutine.R
+import com.example.happyroutine.ui.fragment.DietFragment
+import com.example.happyroutine.ui.fragment.EditProfileFragment
+import com.example.happyroutine.ui.fragment.ExerciseFragment
+import com.example.happyroutine.ui.fragment.SocialFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class Navigation_bar_main : AppCompatActivity()  {

@@ -74,6 +74,9 @@
     <string name="lose_weight">Lose weight</string>
     <string name="gain_muscle">Gain muscle</string>
     <string name="exercise_for_health">Exercise for health</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="birthday">Birthday</string>
 
 
 </resources>

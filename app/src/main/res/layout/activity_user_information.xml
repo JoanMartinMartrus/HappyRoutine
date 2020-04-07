@@ -17,6 +17,28 @@
             android:layout_marginLeft="48dp"
             android:layout_marginVertical="48dp"
             android:layout_marginRight="48dp">
+            <EditText
+                android:id="@+id/edit_text_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:hint="@string/name"
+                android:importantForAutofill="no"
+                android:inputType="text" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+            <EditText
+                android:id="@+id/edit_text_surname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:hint="@string/surname"
+                android:importantForAutofill="no"
+                android:inputType="text" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,13 +74,15 @@
                 android:layout_height="10dp" />
 
             <EditText
-                android:id="@+id/edit_text_age"
+                android:id="@+id/edit_text_birthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:hint="@string/age"
+                android:hint="@string/birthday"
                 android:importantForAutofill="no"
-                android:inputType="numberDecimal" />
+                android:inputType="date"
+                android:focusable="false"
+                android:clickable="true" />
 
             <View
                 android:layout_width="match_parent"

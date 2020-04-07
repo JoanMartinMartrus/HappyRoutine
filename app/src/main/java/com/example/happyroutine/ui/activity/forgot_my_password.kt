@@ -1,4 +1,4 @@
-package com.example.happyroutine
+package com.example.happyroutine.ui.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
+import com.example.happyroutine.R
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_forgot_my_password.*
-import kotlinx.android.synthetic.main.activity_log_in.*
 
 class forgot_my_password : AppCompatActivity() {
 
