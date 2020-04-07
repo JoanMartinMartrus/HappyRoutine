@@ -1,15 +1,14 @@
-package com.example.happyroutine
+package com.example.happyroutine.ui.activity
 
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
+import com.example.happyroutine.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class sign_up : AppCompatActivity() {

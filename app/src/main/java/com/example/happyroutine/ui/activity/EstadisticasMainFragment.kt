@@ -1,10 +1,11 @@
-package com.example.happyroutine
+package com.example.happyroutine.ui.activity
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.happyroutine.R
 
 /**
  * A simple [Fragment] subclass.

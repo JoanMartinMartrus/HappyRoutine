@@ -9,21 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".social"></activity>
-        <activity android:name=".settings" />
-        <activity android:name=".user_information" />
-        <activity android:name=".forgot_my_password" />
-        <activity android:name=".Estadisticas_main" />
-        <activity android:name=".Estadisticas_trainning_days"/>
-        <activity android:name=".Estadisticas_weight"/>
-        <activity android:name=".Navigation_bar_main"/>
-        <activity android:name=".sign_up" />
-        <activity android:name=".routine" />
-        <activity android:name=".exercise" />
-        <activity android:name=".diet" />
+        <activity android:name=".ui.activity.social"></activity>
+        <activity android:name=".ui.activity.settings" />
+        <activity android:name=".ui.activity.user_information" />
+        <activity android:name=".ui.activity.forgot_my_password" />
+        <activity android:name=".ui.activity.Estadisticas_main" />
+        <activity android:name=".ui.activity.Estadisticas_trainning_days"/>
+        <activity android:name=".ui.activity.Estadisticas_weight"/>
+        <activity android:name=".ui.activity.Navigation_bar_main"/>
+        <activity android:name=".ui.activity.sign_up" />
+        <activity android:name=".ui.activity.routine" />
+        <activity android:name=".ui.activity.exercise" />
+        <activity android:name=".ui.activity.diet" />
 
-        <activity android:name=".log_in" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.activity.log_in" />
+        <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

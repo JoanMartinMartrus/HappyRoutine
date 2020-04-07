@@ -1,7 +1,8 @@
-package com.example.happyroutine
+package com.example.happyroutine.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.happyroutine.R
 
 class Estadisticas_weight : AppCompatActivity() {
 

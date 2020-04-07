@@ -1,6 +1,7 @@
-package com.example.happyroutine
+package com.example.happyroutine.ui.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.happyroutine.R
 
 class Estadisticas_trainning_days : AppCompatActivity() {
 
