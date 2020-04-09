@@ -40,6 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
             <TextView
+                android:id="@+id/tv_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/gender"
@@ -52,6 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp" />
             <RadioGroup
+                android:id="@+id/radiogroup_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -128,6 +130,7 @@
                 android:layout_height="10dp" />
 
             <TextView
+                android:id="@+id/tv_objectives"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/objectives"
@@ -148,17 +151,20 @@
                 android:layout_height="wrap_content">
 
                 <RadioGroup
+                    android:id="@+id/rg_line1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <RadioButton
+                        android:id="@+id/rb_gain_weight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/gain_weight"
                         android:layout_weight="1"/>
 
                     <RadioButton
+                        android:id="@+id/rb_lose_weight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/lose_weight"
@@ -167,17 +173,20 @@
                 </RadioGroup>
 
                 <RadioGroup
+                    android:id="@+id/rg_line2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <RadioButton
+                        android:id="@+id/rb_gain_muscle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/gain_muscle"
                         android:layout_weight="1"/>
 
                     <RadioButton
+                        android:id="@+id/rb_exercise_for_muscle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/exercise_for_health"
@@ -192,6 +201,7 @@
                 android:layout_height="10dp" />
 
             <TextView
+                android:id="@+id/tv_diet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/diet"
@@ -267,6 +277,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linearlayout_platform"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -277,6 +289,7 @@
                     android:orientation="vertical"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/tv_offer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/offer"/>
@@ -306,6 +319,7 @@
                     android:orientation="vertical"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/tv_needs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/needs"/>
