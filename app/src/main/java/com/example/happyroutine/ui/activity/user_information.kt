@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.happyroutine.R
 import com.example.happyroutine.ui.dialog.DatePickerFragment
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -58,12 +59,15 @@ class user_information : AppCompatActivity() {
         val date = Date(year, month, day)
         val location = edit_text_location.text.toString()
         val height = edit_text_height.text.toString().toInt()
-        val weight = edit_text_weight.text.toString().toInt()
         val objective = getObjective()
         val diet = getDiet()
         val participantPlatform = checkBoxPlatformAnswer.isChecked
         val offer = getOffer()
         val needs = getNeeds()
+        var weightEntries = ArrayList<Float>()
+        weightEntries.add(edit_text_weight.text.toString().toFloat())
+        var dateEntries = ArrayList<Timestamp>()
+        dateEntries.add(Timestamp.now())
 
 
         val data = hashMapOf(
@@ -75,12 +79,16 @@ class user_information : AppCompatActivity() {
             "birthday" to date,
             "location" to location,
             "height" to height,
-            "weight" to weight,
             "objective" to objective,
             "diet" to diet,
             "participantPlatform" to participantPlatform,
             "offer" to offer,
             "needs" to needs
+        )
+
+        val weightTrack = hashMapOf(
+            "weightEntries" to weightEntries,
+            "dateEntries" to dateEntries
         )
 
        db.document(uid)
@@ -95,6 +103,19 @@ class user_information : AppCompatActivity() {
                Toast.makeText(baseContext, "Something went wrong" + e.toString(),
                    Toast.LENGTH_LONG).show()
            }
+
+        db.document(uid).collection("weight").document("weight")
+            .set(weightTrack)
+            .addOnSuccessListener {
+                Log.i("DB", "Data stored succesfully")
+                startActivity(Intent(this, Navigation_bar_main::class.java))
+                finish()
+            }
+            .addOnFailureListener {e ->
+                Log.i("DB", "Something went wrong",e)
+                Toast.makeText(baseContext, "Something went wrong" + e.toString(),
+                    Toast.LENGTH_LONG).show()
+            }
     }
 
     private fun getOffer(): List<String> {
