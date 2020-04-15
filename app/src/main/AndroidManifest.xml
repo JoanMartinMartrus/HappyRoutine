@@ -16,12 +16,12 @@
         <activity android:name=".ui.activity.Estadisticas_main" />
         <activity android:name=".ui.activity.Estadisticas_trainning_days"/>
         <activity android:name=".ui.activity.Estadisticas_weight"/>
+        <activity android:name=".ui.activity.customChart"/>
         <activity android:name=".ui.activity.Navigation_bar_main"/>
         <activity android:name=".ui.activity.sign_up" />
         <activity android:name=".ui.activity.routine" />
         <activity android:name=".ui.activity.exercise" />
         <activity android:name=".ui.activity.diet" />
-
         <activity android:name=".ui.activity.log_in" />
         <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
