@@ -1,6 +1,8 @@
 package com.example.happyroutine.ui.activity
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
@@ -15,8 +17,10 @@ import kotlinx.android.synthetic.main.activity_log_in.*
 class log_in : AppCompatActivity() {
     lateinit var auth: FirebaseAuth
 
+    @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation= ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(R.layout.activity_log_in)
         auth = FirebaseAuth.getInstance()
     }

@@ -1,7 +1,9 @@
 package com.example.happyroutine.ui.activity
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -21,8 +23,10 @@ class user_information : AppCompatActivity() {
 
     lateinit var db : CollectionReference
 
+    @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation= ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(R.layout.activity_user_information)
 
         db = FirebaseFirestore.getInstance().collection("users")
