@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentTransaction
 import com.example.happyroutine.R
 import com.example.happyroutine.ui.activity.Estadisticas_weight
 import kotlinx.android.synthetic.main.fragment_estadisticas_main.*
@@ -29,6 +30,13 @@ class EstadisticasMainFragment : Fragment() {
             activity?.let {
                 val intent = Intent(it, Estadisticas_weight::class.java)
                 it.startActivity(intent)
+            }
+        }
+        button_trainning_days.setOnClickListener{
+            fragmentManager?.let {
+                it.beginTransaction().replace(R.id.frame_layout_navigation_bar,EstadisticasTrainningDaysFragment())
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .commit()
             }
         }
     }

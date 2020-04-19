@@ -13,7 +13,7 @@ class exercise : AppCompatActivity() {
     }
 
     fun goToSettings(view: View) {
-        val intent = Intent(this, settings::class.java)
-        startActivity(intent)
+       // val intent = Intent(this, settings::class.java)
+        //startActivity(intent)
     }
 }
