@@ -55,4 +55,6 @@ dependencies {
     //Multiline RadioGroup
     implementation 'com.yuxingxin.multiradiogroup:library:1.0.0'
 
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
+
 }
