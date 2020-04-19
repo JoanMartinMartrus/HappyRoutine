@@ -77,6 +77,13 @@
     <string name="name">Name</string>
     <string name="surname">Surname</string>
     <string name="birthday">Birthday</string>
+    <string name="edit_food_i_do_not_want">Edit food I do not like</string>
+    <string name="log_out">Log out</string>
+    <string name="delete_profile">Delete profile</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select_food_you_do_not_like">Select Food You Do Not Like</string>
 
 
 </resources>

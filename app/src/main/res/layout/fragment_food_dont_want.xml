@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.fragment.FoodDontWantFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="25dp">
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="25dp" />
+
+        <TextView
+            android:id="@+id/food_dont_want"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select_food_you_do_not_like"
+            android:textAlignment="center"
+            android:textColor="#3641A3"
+            android:textFontWeight="30"
+            android:textSize="25sp" />
+        <View
+            android:id="@+id/divider8"
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="400dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <CheckBox
+                    android:id="@+id/dairy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="DAIRY" />
+                <View
+                    android:id="@+id/betwenchexkboxes1"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <CheckBox
+                    android:id="@+id/MEAT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="MEAT" />
+                <View
+                    android:id="@+id/betwenchexkboxes2"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <CheckBox
+                    android:id="@+id/FISH"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="FISH" />
+                <View
+                    android:id="@+id/betwenchexkboxes3"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <CheckBox
+                    android:id="@+id/SHELLFISH"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="SHELLFISH" />
+                <View
+                    android:id="@+id/betwenchexkboxes4"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <CheckBox
+                    android:id="@+id/EGGS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="EGGS" />
+                <View
+                    android:id="@+id/betwenchexkboxes5"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <CheckBox
+                    android:id="@+id/LEGUMES"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="LEGUMES" />
+                <View
+                    android:id="@+id/betwenchexkboxes6"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <CheckBox
+                    android:id="@+id/VEGETABLE"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="VEGETABLE" />
+                <View
+                    android:id="@+id/betwenchexkboxes7"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <CheckBox
+                    android:id="@+id/FRUIT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="FRUIT" />
+                <View
+                    android:id="@+id/betwenchexkboxes8"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <CheckBox
+                    android:id="@+id/NUT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="NUT" />
+                <View
+                    android:id="@+id/betwenchexkboxes9"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <CheckBox
+                    android:id="@+id/GREENS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="GREENS" />
+                <View
+                    android:id="@+id/betwenchexkboxes10"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <CheckBox
+                    android:id="@+id/CEREAL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CEREAL" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <View
+            android:id="@+id/between_button"
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <Button
+            android:id="@+id/save"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_button"
+            android:text="@string/save"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"
+            android:textAllCaps="false"
+            android:textSize="12sp"/>
+
+
+    </LinearLayout>
+</FrameLayout>
