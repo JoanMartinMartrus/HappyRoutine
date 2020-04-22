@@ -84,6 +84,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="select_food_you_do_not_like">Select Food You Do Not Like</string>
+    <string name="button_newChat">New Chat</string>
 
 
 </resources>
