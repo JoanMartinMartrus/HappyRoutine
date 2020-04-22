@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="48dp">
+        android:paddingTop="48dp"
+        android:paddingHorizontal="48dp"
+        android:paddingBottom="30dp">
 
         <TextView
             android:id="@+id/textView4"
@@ -55,12 +57,12 @@
         </LinearLayout>
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="25dp">
+            android:layout_height="match_parent"
+            android:paddingTop="25dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <Spinner

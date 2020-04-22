@@ -22,62 +22,13 @@ class TrainningFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view:View=inflater.inflate(R.layout.fragment_trainning, container, false)
-        val spinner:Spinner=view.findViewById(R.id.recommended_spinner)
-        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
-            view.context,
-            R.layout.custom_spinner,
-            resources.getStringArray(R.array.recommended)
-        )
-        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown)
-        spinner.adapter = adapter
 
-        val spinnerFavs:Spinner=view.findViewById(R.id.my_favs_spinner)
-        val adapterFavs: ArrayAdapter<String> = ArrayAdapter<String>(
-            view.context,
-            R.layout.custom_spinner,
-            resources.getStringArray(R.array.myFavouritesTrainnings)
-        )
-        adapterFavs.setDropDownViewResource(R.layout.custom_spinner_dropdown)
-        spinnerFavs.adapter = adapterFavs
-
-        val spinnerBeginner:Spinner=view.findViewById(R.id.beginner_spinner)
-        val adapterBeginner: ArrayAdapter<String> = ArrayAdapter<String>(
-            view.context,
-            R.layout.custom_spinner,
-            resources.getStringArray(R.array.beginner)
-        )
-        adapterBeginner.setDropDownViewResource(R.layout.custom_spinner_dropdown)
-        spinnerBeginner.adapter = adapterBeginner
-
-        val spinnerIntermediate:Spinner=view.findViewById(R.id.intermediate_spinner)
-        val adapterIntermediate: ArrayAdapter<String> = ArrayAdapter<String>(
-            view.context,
-            R.layout.custom_spinner,
-            resources.getStringArray(R.array.intermediate)
-        )
-        adapterIntermediate.setDropDownViewResource(R.layout.custom_spinner_dropdown)
-        spinnerIntermediate.adapter = adapterIntermediate
-
-        val spinnerAdvanced:Spinner=view.findViewById(R.id.advanced_spinner)
-        val adapterAdvanced: ArrayAdapter<String> = ArrayAdapter<String>(
-            view.context,
-            R.layout.custom_spinner,
-            resources.getStringArray(R.array.advanced)
-        )
-        adapterAdvanced.setDropDownViewResource(R.layout.custom_spinner_dropdown)
-        spinnerAdvanced.adapter = adapterAdvanced
-
-        val spinnerExpert:Spinner=view.findViewById(R.id.expert_spinner)
-        val adapterExpert: ArrayAdapter<String> = ArrayAdapter<String>(
-            view.context,
-            R.layout.custom_spinner,
-            resources.getStringArray(R.array.expert)
-        )
-        adapterExpert.setDropDownViewResource(R.layout.custom_spinner_dropdown)
-        spinnerExpert.adapter = adapterExpert
-
-
-
+        customSpinner(R.id.recommended_spinner,R.array.recommended,view)
+        customSpinner(R.id.my_favs_spinner,R.array.myFavouritesTrainnings,view)
+        customSpinner(R.id.beginner_spinner,R.array.beginner,view)
+        customSpinner(R.id.intermediate_spinner,R.array.intermediate,view)
+        customSpinner(R.id.advanced_spinner,R.array.advanced,view)
+        customSpinner(R.id.expert_spinner,R.array.expert,view)
         // Inflate the layout for this fragment
         return view
     }
@@ -92,6 +43,18 @@ class TrainningFragment : Fragment() {
                     .commit()
             }
         }
+    }
+
+    private fun customSpinner(id_spinner:Int, id_entries:Int, view:View){
+        val spinner:Spinner=view.findViewById(id_spinner)
+        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
+            view.context,
+            R.layout.custom_spinner,
+            resources.getStringArray(id_entries)
+        )
+        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown)
+        spinner.adapter = adapter
+
     }
 
 
