@@ -6,4 +6,8 @@
     <color name="colorBackgroundStart">#FFFFFF</color>
     <color name="colorBackgroundEnd">#7FFFFF</color>
     <color name="buttonColor">#7B8D93</color>
+    <color name="titleColor">#3641A3</color>
+    <color name="roundedButtonColor">#018786</color>
+    <color name="white">#FFFFFF</color>
+
 </resources>

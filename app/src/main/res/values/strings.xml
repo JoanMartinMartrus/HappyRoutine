@@ -86,4 +86,88 @@
     <string name="select_food_you_do_not_like">Select Food You Do Not Like</string>
 
 
+    <string name="recommended">RECOMMENDED</string>
+    <string name="myFavouritesTrainnings">MY FAVOURITES</string>
+    <string name="beginner">BEGINNER</string>
+    <string name="intermediate">INTERMEDIATE</string>
+    <string name="advanced">ADVANCED</string>
+    <string name="expert">EXPERT</string>
+    <string name="view_all_exercices">view all exercices</string>
+    <string name="select_your_trainning">SELECT YOUR TRAINNING</string>
+    <string name="exercises">EXERCISES</string>
+
+    <string-array name="recommended">
+        <item>Recommended</item>
+        <item>trainning 1</item>
+        <item>trainning 2</item>
+        <item>trainning 3</item>
+    </string-array>
+    <string-array name="recommended_exercices">
+        <item>Recommended</item>
+        <item>exercices 1</item>
+        <item>exercices 2</item>
+        <item>exercices 3</item>
+    </string-array>
+    <string-array name="myFavouritesTrainnings">
+        <item>My Favourites</item>
+        <item>trainning 1</item>
+        <item>trainning 2</item>
+        <item>trainning 3</item>
+    </string-array>
+    <string-array name="myFavouritesTrainnings_exercices">
+        <item>My Favourites</item>
+        <item>exercices 1</item>
+        <item>exercices 2</item>
+        <item>exercices 3</item>
+    </string-array>
+    <string-array name="beginner">
+        <item>Beginner</item>
+        <item>trainning 1</item>
+        <item>trainning 2</item>
+        <item>trainning 3</item>
+    </string-array>
+    <string-array name="beginner_exercices">
+        <item>Beginner</item>
+        <item>exercices 1</item>
+        <item>exercices 2</item>
+        <item>exercices 3</item>
+    </string-array>
+    <string-array name="intermediate">
+        <item>Intermediate</item>
+        <item>trainning 1</item>
+        <item>trainning 2</item>
+        <item>trainning 3</item>
+    </string-array>
+    <string-array name="intermediate_exercices">
+        <item>Intermediate</item>
+        <item>exercices 1</item>
+        <item>exercices 2</item>
+        <item>exercices 3</item>
+    </string-array>
+    <string-array name="advanced">
+        <item>Advanced</item>
+        <item>trainning 1</item>
+        <item>trainning 2</item>
+        <item>trainning 3</item>
+    </string-array>
+    <string-array name="advanced_exercices">
+        <item>Advanced</item>
+        <item>exercices 1</item>
+        <item>exercices 2</item>
+        <item>exercices 3</item>
+    </string-array>
+    <string-array name="expert">
+        <item>Expert</item>
+        <item>trainning 1</item>
+        <item>trainning 2</item>
+        <item>trainning 3</item>
+    </string-array>
+    <string-array name="expert_exercices">
+        <item>Expert</item>
+        <item>exercices 1</item>
+        <item>exercices 2</item>
+        <item>exercices 3</item>
+    </string-array>
+
+
 </resources>
