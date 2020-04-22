@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:orientation="vertical"
+    tools:context=".ui.fragment.TrainningFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="40dp">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select_your_trainning"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@color/titleColor"
+            android:gravity="center"
+            android:textAlignment="center"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your level are:"
+                style="@style/TextAppearance.AppCompat.Body2"/>
+
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:text="BEGINNER"/>
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="25dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/recommended_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/recommended"
+                    android:textAlignment="center"
+                    android:popupBackground="@color/white"
+                    android:paddingHorizontal="20dp"
+                    android:background="@drawable/rounded_spinner"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <Spinner
+                    android:id="@+id/my_favs_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/myFavouritesTrainnings"
+                    android:textAlignment="center"
+                    android:popupBackground="@color/white"
+                    android:paddingHorizontal="20dp"
+                    android:background="@drawable/rounded_spinner"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <Spinner
+                    android:id="@+id/beginner_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/beginner"
+                    android:textAlignment="center"
+                    android:popupBackground="@color/white"
+                    android:paddingHorizontal="20dp"
+                    android:background="@drawable/rounded_spinner"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <Spinner
+                    android:id="@+id/intermediate_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/intermediate"
+                    android:textAlignment="center"
+                    android:popupBackground="@color/white"
+                    android:paddingHorizontal="20dp"
+                    android:background="@drawable/rounded_spinner"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <Spinner
+                    android:id="@+id/advanced_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/advanced"
+                    android:textAlignment="center"
+                    android:popupBackground="@color/white"
+                    android:paddingHorizontal="20dp"
+                    android:background="@drawable/rounded_spinner"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <Spinner
+                    android:id="@+id/expert_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/expert"
+                    android:textAlignment="center"
+                    android:popupBackground="@color/white"
+                    android:paddingHorizontal="20dp"
+                    android:background="@drawable/rounded_spinner"
+                    />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/view_all_exercices"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@string/view_all_exercices"
+            android:background="@drawable/rounded_button_border"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_gravity="bottom"
+            />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"/>
+
+    </LinearLayout>
+</FrameLayout>

@@ -31,7 +31,7 @@ class Navigation_bar_main : AppCompatActivity()  {
                     true
                 }
                 R.id.exercises -> {
-                    showSelectedFragment(ExerciseFragment());
+                    showSelectedFragment(TrainningFragment());
                     true
                 }
                 R.id.statistics -> {
