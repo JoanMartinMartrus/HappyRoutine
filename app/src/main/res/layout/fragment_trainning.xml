@@ -57,16 +57,13 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingVertical="25dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp" />
 
                 <Spinner
                     android:id="@+id/recommended_spinner"
@@ -147,9 +144,6 @@
             </LinearLayout>
         </ScrollView>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="25dp"/>
         <Button
             android:id="@+id/view_all_exercices"
             android:layout_width="match_parent"

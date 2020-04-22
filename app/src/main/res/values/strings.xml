@@ -102,23 +102,11 @@
         <item>trainning 2</item>
         <item>trainning 3</item>
     </string-array>
-    <string-array name="recommended_exercices">
-        <item>Recommended</item>
-        <item>exercices 1</item>
-        <item>exercices 2</item>
-        <item>exercices 3</item>
-    </string-array>
     <string-array name="myFavouritesTrainnings">
         <item>My Favourites</item>
         <item>trainning 1</item>
         <item>trainning 2</item>
         <item>trainning 3</item>
-    </string-array>
-    <string-array name="myFavouritesTrainnings_exercices">
-        <item>My Favourites</item>
-        <item>exercices 1</item>
-        <item>exercices 2</item>
-        <item>exercices 3</item>
     </string-array>
     <string-array name="beginner">
         <item>Beginner</item>
@@ -126,23 +114,11 @@
         <item>trainning 2</item>
         <item>trainning 3</item>
     </string-array>
-    <string-array name="beginner_exercices">
-        <item>Beginner</item>
-        <item>exercices 1</item>
-        <item>exercices 2</item>
-        <item>exercices 3</item>
-    </string-array>
     <string-array name="intermediate">
         <item>Intermediate</item>
         <item>trainning 1</item>
         <item>trainning 2</item>
         <item>trainning 3</item>
-    </string-array>
-    <string-array name="intermediate_exercices">
-        <item>Intermediate</item>
-        <item>exercices 1</item>
-        <item>exercices 2</item>
-        <item>exercices 3</item>
     </string-array>
     <string-array name="advanced">
         <item>Advanced</item>
@@ -150,20 +126,76 @@
         <item>trainning 2</item>
         <item>trainning 3</item>
     </string-array>
-    <string-array name="advanced_exercices">
-        <item>Advanced</item>
-        <item>exercices 1</item>
-        <item>exercices 2</item>
-        <item>exercices 3</item>
-    </string-array>
     <string-array name="expert">
         <item>Expert</item>
         <item>trainning 1</item>
         <item>trainning 2</item>
         <item>trainning 3</item>
     </string-array>
-    <string-array name="expert_exercices">
-        <item>Expert</item>
+
+
+    <string-array name="recommended_exercices">
+        <item>Recommended</item>
+        <item>exercices 1</item>
+        <item>exercices 2</item>
+        <item>exercices 3</item>
+    </string-array>
+    <string-array name="myFavouritesTrainnings_exercices">
+        <item>My Favourites</item>
+        <item>exercices 1</item>
+        <item>exercices 2</item>
+        <item>exercices 3</item>
+    </string-array>
+    <string-array name="Stretching">
+        <item>Stretching</item>
+        <item>exercices 1</item>
+        <item>exercices 2</item>
+        <item>exercices 3</item>
+    </string-array>
+    <string-array name="Abds">
+        <item>Abds</item>
+        <item>exercices 1</item>
+        <item>exercices 2</item>
+        <item>exercices 3</item>
+    </string-array>
+    <string-array name="Arms">
+        <item>Arms</item>
+        <item>exercices 1</item>
+        <item>exercices 2</item>
+        <item>exercices 3</item>
+    </string-array>
+    <string-array name="Legs">
+        <item>Legs</item>
+        <item>exercices 1</item>
+        <item>exercices 2</item>
+        <item>exercices 3</item>
+    </string-array>
+    <string-array name="Buttocks">
+        <item>Buttocks</item>
+        <item>exercices 1</item>
+        <item>exercices 2</item>
+        <item>exercices 3</item>
+    </string-array>
+    <string-array name="Chest">
+        <item>Chest</item>
+        <item>exercices 1</item>
+        <item>exercices 2</item>
+        <item>exercices 3</item>
+    </string-array>
+    <string-array name="Back">
+        <item>Back</item>
+        <item>exercices 1</item>
+        <item>exercices 2</item>
+        <item>exercices 3</item>
+    </string-array>
+    <string-array name="Cardio">
+        <item>Cardio</item>
+        <item>exercices 1</item>
+        <item>exercices 2</item>
+        <item>exercices 3</item>
+    </string-array>
+    <string-array name="FullBody">
+        <item>Full Body</item>
         <item>exercices 1</item>
         <item>exercices 2</item>
         <item>exercices 3</item>

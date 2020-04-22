@@ -55,16 +55,13 @@
         </LinearLayout>
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingVertical="25dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp" />
 
                 <Spinner
                     android:id="@+id/recommended_spinner"
@@ -78,7 +75,8 @@
                     />
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="15dp" />
+                    android:layout_height="25dp" />
+
                 <Spinner
                     android:id="@+id/my_favs_spinner"
                     android:layout_width="match_parent"
@@ -93,10 +91,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="15dp" />
                 <Spinner
-                    android:id="@+id/beginner_spinner"
+                    android:id="@+id/Stretching"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/beginner_exercices"
+                    android:entries="@array/Stretching"
                     android:textAlignment="center"
                     android:popupBackground="@color/white"
                     android:paddingHorizontal="20dp"
@@ -106,10 +104,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="15dp" />
                 <Spinner
-                    android:id="@+id/intermediate_spinner"
+                    android:id="@+id/Abds"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/intermediate_exercices"
+                    android:entries="@array/Abds"
                     android:textAlignment="center"
                     android:popupBackground="@color/white"
                     android:paddingHorizontal="20dp"
@@ -119,10 +117,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="15dp" />
                 <Spinner
-                    android:id="@+id/advanced_spinner"
+                    android:id="@+id/Arms"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/advanced_exercices"
+                    android:entries="@array/Arms"
                     android:textAlignment="center"
                     android:popupBackground="@color/white"
                     android:paddingHorizontal="20dp"
@@ -132,23 +130,85 @@
                     android:layout_width="match_parent"
                     android:layout_height="15dp" />
                 <Spinner
-                    android:id="@+id/expert_spinner"
+                    android:id="@+id/Legs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/expert_exercices"
+                    android:entries="@array/Legs"
                     android:textAlignment="center"
                     android:popupBackground="@color/white"
                     android:paddingHorizontal="20dp"
                     android:background="@drawable/rounded_spinner"
                     />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <Spinner
+                    android:id="@+id/Buttocks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/Buttocks"
+                    android:textAlignment="center"
+                    android:popupBackground="@color/white"
+                    android:paddingHorizontal="20dp"
+                    android:background="@drawable/rounded_spinner"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <Spinner
+                    android:id="@+id/Chest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/Chest"
+                    android:textAlignment="center"
+                    android:popupBackground="@color/white"
+                    android:paddingHorizontal="20dp"
+                    android:background="@drawable/rounded_spinner"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <Spinner
+                    android:id="@+id/Back"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/Back"
+                    android:textAlignment="center"
+                    android:popupBackground="@color/white"
+                    android:paddingHorizontal="20dp"
+                    android:background="@drawable/rounded_spinner"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <Spinner
+                    android:id="@+id/Cardio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/Cardio"
+                    android:textAlignment="center"
+                    android:popupBackground="@color/white"
+                    android:paddingHorizontal="20dp"
+                    android:background="@drawable/rounded_spinner"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp" />
+                <Spinner
+                    android:id="@+id/FullBody"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/FullBody"
+                    android:textAlignment="center"
+                    android:popupBackground="@color/white"
+                    android:paddingHorizontal="20dp"
+                    android:background="@drawable/rounded_spinner"
+                    />
+
 
             </LinearLayout>
         </ScrollView>
 
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="25dp"/>
 
     </LinearLayout>
 </FrameLayout>
