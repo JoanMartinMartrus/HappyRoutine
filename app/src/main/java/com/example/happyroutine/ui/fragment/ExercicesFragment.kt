@@ -20,107 +20,31 @@ class ExercicesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view:View=inflater.inflate(R.layout.fragment_exercices, container, false)
-        val spinner: Spinner =view.findViewById(R.id.recommended_spinner)
+
+        customSpinner(R.id.recommended_spinner,R.array.recommended_exercices,view)
+        customSpinner(R.id.my_favs_spinner,R.array.myFavouritesTrainnings_exercices,view)
+        customSpinner(R.id.Abds,R.array.Abds,view)
+        customSpinner(R.id.Arms,R.array.Arms,view)
+        customSpinner(R.id.Legs,R.array.Legs,view)
+        customSpinner(R.id.Chest,R.array.Chest,view)
+        customSpinner(R.id.Back,R.array.Back,view)
+        customSpinner(R.id.Buttocks,R.array.Buttocks,view)
+        customSpinner(R.id.Stretching,R.array.Stretching,view)
+        customSpinner(R.id.Cardio,R.array.Cardio,view)
+        customSpinner(R.id.FullBody,R.array.FullBody,view)
+        // Inflate the layout for this fragment
+        return view
+    }
+    private fun customSpinner(id_spinner:Int, id_entries:Int, view:View){
+        val spinner:Spinner=view.findViewById(id_spinner)
         val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
             view.context,
             R.layout.custom_spinner,
-            resources.getStringArray(R.array.recommended_exercices)
+            resources.getStringArray(id_entries)
         )
         adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown)
         spinner.adapter = adapter
 
-        val spinnerFavs:Spinner=view.findViewById(R.id.my_favs_spinner)
-        val adapterFavs: ArrayAdapter<String> = ArrayAdapter<String>(
-            view.context,
-            R.layout.custom_spinner,
-            resources.getStringArray(R.array.myFavouritesTrainnings_exercices)
-        )
-        adapterFavs.setDropDownViewResource(R.layout.custom_spinner_dropdown)
-        spinnerFavs.adapter = adapterFavs
-
-        val spinnerAbds: Spinner =view.findViewById(R.id.Abds)
-        val adapterAbds: ArrayAdapter<String> = ArrayAdapter<String>(
-            view.context,
-            R.layout.custom_spinner,
-            resources.getStringArray(R.array.Abds)
-        )
-        adapterAbds.setDropDownViewResource(R.layout.custom_spinner_dropdown)
-        spinnerAbds.adapter = adapterAbds
-
-        val spinnerArms: Spinner =view.findViewById(R.id.Arms)
-        val adapterArms: ArrayAdapter<String> = ArrayAdapter<String>(
-            view.context,
-            R.layout.custom_spinner,
-            resources.getStringArray(R.array.Arms)
-        )
-        adapterArms.setDropDownViewResource(R.layout.custom_spinner_dropdown)
-        spinnerArms.adapter = adapterArms
-
-        val spinnerLegs: Spinner =view.findViewById(R.id.Legs)
-        val adapterLegs: ArrayAdapter<String> = ArrayAdapter<String>(
-            view.context,
-            R.layout.custom_spinner,
-            resources.getStringArray(R.array.Legs)
-        )
-        adapterLegs.setDropDownViewResource(R.layout.custom_spinner_dropdown)
-        spinnerLegs.adapter = adapterLegs
-
-        val spinnerChest: Spinner =view.findViewById(R.id.Chest)
-        val adapterChest: ArrayAdapter<String> = ArrayAdapter<String>(
-            view.context,
-            R.layout.custom_spinner,
-            resources.getStringArray(R.array.Chest)
-        )
-        adapterChest.setDropDownViewResource(R.layout.custom_spinner_dropdown)
-        spinnerChest.adapter = adapterChest
-
-        val spinnerBack: Spinner =view.findViewById(R.id.Back)
-        val adapterBack: ArrayAdapter<String> = ArrayAdapter<String>(
-            view.context,
-            R.layout.custom_spinner,
-            resources.getStringArray(R.array.Back)
-        )
-        adapterBack.setDropDownViewResource(R.layout.custom_spinner_dropdown)
-        spinnerBack.adapter = adapterBack
-
-        val spinnerButtocks: Spinner =view.findViewById(R.id.Buttocks)
-        val adapterButtocks: ArrayAdapter<String> = ArrayAdapter<String>(
-            view.context,
-            R.layout.custom_spinner,
-            resources.getStringArray(R.array.Buttocks)
-        )
-        adapterButtocks.setDropDownViewResource(R.layout.custom_spinner_dropdown)
-        spinnerButtocks.adapter = adapterButtocks
-
-        val spinnerStretching: Spinner =view.findViewById(R.id.Stretching)
-        val adapterStretching: ArrayAdapter<String> = ArrayAdapter<String>(
-            view.context,
-            R.layout.custom_spinner,
-            resources.getStringArray(R.array.Stretching)
-        )
-        adapterStretching.setDropDownViewResource(R.layout.custom_spinner_dropdown)
-        spinnerStretching.adapter = adapterStretching
-
-        val spinnerCardio: Spinner =view.findViewById(R.id.Cardio)
-        val adapterCardio: ArrayAdapter<String> = ArrayAdapter<String>(
-            view.context,
-            R.layout.custom_spinner,
-            resources.getStringArray(R.array.Cardio)
-        )
-        adapterCardio.setDropDownViewResource(R.layout.custom_spinner_dropdown)
-        spinnerCardio.adapter = adapterCardio
-
-        val spinnerFullBody: Spinner =view.findViewById(R.id.FullBody)
-        val adapterFullBody: ArrayAdapter<String> = ArrayAdapter<String>(
-            view.context,
-            R.layout.custom_spinner,
-            resources.getStringArray(R.array.FullBody)
-        )
-        adapterFullBody.setDropDownViewResource(R.layout.custom_spinner_dropdown)
-        spinnerFullBody.adapter = adapterFullBody
-
-        // Inflate the layout for this fragment
-        return view
     }
 
 

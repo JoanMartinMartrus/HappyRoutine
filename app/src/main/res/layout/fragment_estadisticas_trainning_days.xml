@@ -21,17 +21,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <View
-            android:id="@+id/divider_top"
-            android:layout_width="match_parent"
-            android:layout_height="50dp" />
-
-
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/fecha"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_text"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:textSize="18dp"
+            style="@style/TextAppearance.AppCompat.Title"
+            />
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/custom_list_view"/>
 
 
     </LinearLayout>
+
 </FrameLayout>
