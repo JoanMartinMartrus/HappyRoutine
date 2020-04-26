@@ -63,7 +63,6 @@
             android:layout_weight="0.5"
             android:background="@drawable/rounded_button"
             android:maxWidth="16dp"
-            android:onClick="enterNewWeight"
             android:text="@string/ok"
             android:textColor="#FFFFFF" />
     </LinearLayout>

@@ -29,11 +29,11 @@ class Estadisticas_weight : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_estadisticas_weight)
-        //showLimits()
+        showLimits()
         drawChart()
     }
 
-    fun enterNewWeight(view: View){
+    /*fun enterNewWeight(view: View){
         if(weightEntry.text.toString().isEmpty()){
             weightEntry.error = "Please, enter your weight"
             weightEntry.requestFocus()
@@ -59,9 +59,9 @@ class Estadisticas_weight : AppCompatActivity() {
         db.document(uid).collection("weight").document("weight").update("dateEntries", dateEntries)
 
         //Refresh chart
-        //showLimits()
+        showLimits()
         drawChart()
-    }
+    }*/
 
     private fun drawChart(){
         //Get weight and date lists from Firebase
@@ -79,8 +79,6 @@ class Estadisticas_weight : AppCompatActivity() {
                     var index = 1f
 
                     for(value: Float in weightEntries){
-                        println(index)
-                        println(value)
                         entries.add(Entry(index, value))
                         index += 1f
                     }
@@ -123,45 +121,60 @@ class Estadisticas_weight : AppCompatActivity() {
                     lineChart.animateX(1800, Easing.EaseInOutBack)
 
                     //Checking value points enabled
-                    val markerView = customChart(this, R.layout.chart_marker_view)
+                    /*val markerView = customChart(this, R.layout.chart_marker_view)
                     lineChart.marker = markerView
                     lineChart.notifyDataSetChanged()
-                    lineChart.invalidate()
+                    lineChart.invalidate()*/
                 }
             }
     }
-    //ERROR AT 142: java.lang.Long cannot be cast to java.lang.Integer ???
+
     private fun showLimits(){
-        var currentHeight: Int
-        currentHeight = 0
+        var height: Number = 1
         db.document(uid).get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val document = task.result
                     if (document!!.exists()) {
-                        currentHeight = document["height"] as Int //Error here
+                        height = document["height"] as Number
+                        height = document["height"] as Number
                     }
+                    var currentWeight = 1f
+                    db.document(uid).collection("weight").document("weight").get()
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val document = task.result
+                                if (document!!.exists()) {
+                                    weightEntries = document["weightEntries"] as ArrayList<Float>
+                                }
+                                currentWeight =  weightEntries.last()
+
+                                val currentHeight = height.toFloat()
+                                val overweightValue = ((currentHeight/100)*(currentHeight/100)) * 25f
+                                val overweightLimit = LimitLine(overweightValue, "Overweight")
+                                overweightLimit.lineWidth = 4f
+                                overweightLimit.enableDashedLine(10f,10f,0f)
+                                overweightLimit.labelPosition = LimitLine.LimitLabelPosition.RIGHT_TOP
+                                overweightLimit.textSize = 10f
+                                overweightLimit.lineColor = Color.rgb(254,10,10)
+
+                                val lowWeightValue = ((currentHeight/100)*(currentHeight/100)) * 18.4f
+                                val lowWeightLimit = LimitLine(lowWeightValue, "Low weight")
+                                lowWeightLimit.lineWidth = 4f
+                                lowWeightLimit.enableDashedLine(10f,10f,0f)
+                                lowWeightLimit.labelPosition = LimitLine.LimitLabelPosition.RIGHT_TOP
+                                lowWeightLimit.textSize = 10f
+                                lowWeightLimit.lineColor = Color.rgb(10, 10, 254)
+
+                                if(currentWeight > overweightValue - 5 && currentWeight < overweightValue + 5){
+                                    lineChart.axisLeft.addLimitLine(overweightLimit)
+                                }
+                                if(currentWeight > lowWeightValue - 5 && currentWeight < lowWeightValue + 5){
+                                    lineChart.axisLeft.addLimitLine(lowWeightLimit)
+                                }
+                            }
+                        }
                 }
             }
-
-        val overweightValue = (currentHeight/100) * (currentHeight/100) * 25f
-        val overweightLimit = LimitLine(overweightValue, "Overweight")
-        overweightLimit.lineWidth = 4f
-        overweightLimit.enableDashedLine(10f,10f,0f)
-        overweightLimit.labelPosition = LimitLine.LimitLabelPosition.RIGHT_TOP
-        overweightLimit.textSize = 10f
-        overweightLimit.lineColor = Color.rgb(254,10,10)
-
-        val lowWeightValue = (currentHeight/100) * (currentHeight/100) * 18.4f
-        val lowWeightLimit = LimitLine(lowWeightValue, "Low weight")
-        lowWeightLimit.lineWidth = 4f
-        lowWeightLimit.enableDashedLine(10f,10f,0f)
-        lowWeightLimit.labelPosition = LimitLine.LimitLabelPosition.RIGHT_TOP
-        lowWeightLimit.textSize = 10f
-        lowWeightLimit.lineColor = Color.rgb(10, 10, 254)
-
-        lineChart.axisLeft.addLimitLine(overweightLimit)
-        lineChart.axisLeft.addLimitLine(lowWeightLimit)
-        return
     }
 }
