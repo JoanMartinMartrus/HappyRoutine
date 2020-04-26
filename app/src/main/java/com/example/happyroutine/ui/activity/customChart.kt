@@ -7,7 +7,7 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.utils.MPPointF
 import kotlinx.android.synthetic.main.chart_marker_view.view.*
 
-class customChart(context: Estadisticas_weight, layoutResource: Int):  MarkerView(context, layoutResource) {
+class customChart(context: EstadisticasWeightFragment, layoutResource: Int):  MarkerView(context.context, layoutResource) {
     override fun refreshContent(entry: Entry?, highlight: Highlight?) {
         val value = entry?.y?.toFloat() ?: 0.0
         val resText = "Weight: $value Kg"

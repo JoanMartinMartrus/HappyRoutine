@@ -26,19 +26,13 @@ class EstadisticasMainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        button_weight.setOnClickListener {
-            activity?.let {
-                val intent = Intent(it, Estadisticas_weight::class.java)
-                it.startActivity(intent)
-            }
-        }
-        /*button_weight.setOnClickListener{
+        button_weight.setOnClickListener{
             fragmentManager?.let {
                 it.beginTransaction().replace(R.id.frame_layout_navigation_bar,EstadisticasWeightFragment())
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit()
             }
-        }*/
+        }
         button_trainning_days.setOnClickListener{
             fragmentManager?.let {
                 it.beginTransaction().replace(R.id.frame_layout_navigation_bar,EstadisticasTrainningDaysFragment())

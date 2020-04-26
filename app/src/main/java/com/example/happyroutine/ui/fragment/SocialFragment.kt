@@ -1,22 +1,42 @@
 package com.example.happyroutine.ui.fragment
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ExpandableListView
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.happyroutine.R
+import com.example.happyroutine.ui.activity.ExpandableAdapter
+import com.example.happyroutine.ui.activity.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.fragment_social_messages.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class SocialFragment : Fragment() {
 
     private val db = FirebaseFirestore.getInstance().collection("users")
     private val uid = FirebaseAuth.getInstance().currentUser?.uid.toString()
-    val name = FirebaseAuth.getInstance().currentUser?.displayName.toString()
+    private var expandableAdapter: ExpandableAdapter? = null
+    private var expList: ExpandableListView? = null
+    private val parents = arrayOf("Recommended", "Diet Advice", "Training Advice", "Company")
+    private var mDrawerToggle : ActionBarDrawerToggle? = null
+    private var recommendedList = ArrayList<String>()
+    private var dietList = ArrayList<String>()
+    private var trainerList = ArrayList<String>()
+    private var companyList = ArrayList<String>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,104 +48,101 @@ class SocialFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /*val test = ArrayList<String>()
-        test.add("Amic 1")
-        test.add("Amic 2")
-        val test2 = ArrayList<String>()
-        test.add("Amic 3")
-        test.add("Amic 4")
-        val adapter = this.context?.let { ArrayAdapter(it,android.R.layout.simple_list_item_1, test) }
-        recommended_list.adapter = adapter
-        val adapter2 = this.context?.let { ArrayAdapter(it,android.R.layout.simple_list_item_2, test2) }
-        diet_list.adapter = adapter2*/
-        //displayUsers()
-        getCurrentUserInfo()
+        //mDrawerToggle = ActionBarDrawerToggle(this.context as Activity?, drawer_layout, R.string.open, R.string.close)
+        mDrawerToggle = ActionBarDrawerToggle(activity, drawer_layout, social_toolbar, R.string.open, R.string.close)
 
-        /*button_newChat.setOnClickListener {
-            fragmentManager?.let {
-                it.beginTransaction().replace(R.id.frame_layout_navigation_bar, SocialNewChats())
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .commit()
-            }
-        }*/
+        mDrawerToggle!!.isDrawerIndicatorEnabled = true
+        activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
+        social_toolbar.title = "HappyRoutine Messenger"
+        social_toolbar.setTitleTextColor(Color.WHITE)
+        mDrawerToggle!!.syncState()
+
+        expList = exp_list
+        setChildren()
     }
 
-    private fun getCurrentUserInfo(){
-        var currentUserName: String? = ""
-        var surname: String? = ""
-        var currentUserEmail: String? = ""
-        var needsCurrentUser = ArrayList<String>()
+    @SuppressLint("WrongConstant")
+    private fun setChildren() {
+        var username: String
+        var otherOffers: ArrayList<String>
+        var currentNeeds = ArrayList<String>()
+
         db.document(uid).get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val document = task.result
                     if (document!!.exists()) {
-                        currentUserName = document["name"] as String
-                        surname = document["surname"] as String
-                        currentUserEmail = document["email"] as String
-                        needsCurrentUser = document["needs"] as ArrayList<String>
+                        currentNeeds = document["needs"] as ArrayList<String>
+                        username_textview_new_message.text = document.get("name").toString().plus(" ")
+                            .plus(document.get("surname").toString())
+                        email_textview_new_message.text = document.get("email").toString()
                     }
                 }
-                currentUserName = currentUserName.plus(" ").plus(surname)
 
-                println(currentUserName)
-                println(currentUserEmail)
-                for(need in needsCurrentUser){
-                    println(need)
-                }
-            getUsers(uid)
-            }
-    }
+                db.get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            //Get username and offers from other users
+                            if (document.id != uid) {
+                                otherOffers = document.get("offer") as ArrayList<String>
+                                username = document.get("name").toString().plus(" ")
+                                    .plus(document.get("surname").toString())
 
-    private fun getUsers(current: String){
+                                //Check if other user has the same offer as the current user's need
+                                for (need in currentNeeds) {
+                                    for (i in 0 until otherOffers.size) {
+                                        //If so add it to "Recommended", showing which need is covered
+                                        if (otherOffers[i] == need) {
+                                            recommendedList.add(username
+                                                .plus(" (").plus(need).plus(")"))
+                                        }
+                                        //Add the user to the corresponding group based on what it offers
+                                        if (otherOffers[i] == "Diet Advice") {
+                                            dietList.add(username)
+                                        }
+                                        if (otherOffers[i] == "Exercise advice") {
+                                            trainerList.add(username)
+                                        }
+                                        if (otherOffers[i] == "Company") {
+                                            companyList.add(username)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //Sort every list so the users appear alphabetically
+                        recommendedList.sort()
+                        dietList.sort()
+                        trainerList.sort()
+                        companyList.sort()
 
-        var listOfUsers = ArrayList<String>()
-        db.document().get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val document = task.result
-                    //if (document!!.exists()) {
-                    listOfUsers = document as ArrayList<String>
-                    //}
-                }
-                for(user in listOfUsers){
-                    println(user)
-                }
-            }
-    }
+                        //Add all lists to ExpandableListView
+                        val childList = ArrayList<ArrayList<String>>()
+                        childList.add(recommendedList)
+                        childList.add(dietList)
+                        childList.add(trainerList)
+                        childList.add(companyList)
+                        expandableAdapter = this.context?.let { ExpandableAdapter(it, childList, parents) }
+                        expList!!.setAdapter(expandableAdapter)
 
-    /*private fun displayUsers(){
-        val name = FirebaseAuth.getInstance().currentUser?.displayName
-        val ref = FirebaseDatabase.getInstance().getReference("/users")
-        ref.addListenerForSingleValueEvent(object: ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot?) {
-                val adapter = GroupAdapter<ViewHolder>()
+                        //Listener to start a new chat when selecting user
+                        expList!!.setOnChildClickListener {
+                                parent, v, groupPosition, childPosition, id ->
 
-                p0?.children?.forEach{
-                    val user = it.getValue(UserData::class.java)
-                    if(user != null){
-                        adapter.add(UserItem(user))
+                            /*
+                             * Per obtenir el username, accedeix a l'array bidimensional amb:
+                             * childList[groupPosition][childPosition]
+                             * on groupPosition és el bloc on es troba l'usuari (dieta, entrenament...)
+                             * i childPosition la posició de l'usuari en aquest bloc.
+                            */
+                            Log.i("user", childList[groupPosition][childPosition])
+                            //Prova per iniciar una activity al fer click sobre un usuari qualsevol.
+                            //val intent = Intent(activity, MainActivity::class.java)
+                            //drawer_layout.closeDrawer(Gravity.START)
+                            //startActivity(intent)
+                            false
+                        }
                     }
-                }
-                recyclerview_newmessage.adapter = adapter
             }
-
-            override fun onCancelled(p0: DatabaseError?) {
-            }
-        })
-
-    }*/
-}/*
-class UserItem(val user: UserData): Item<ViewHolder>() {
-    override fun bind(viewHolder: ViewHolder, position: Int) {
-        viewHolder.itemView.username_textview_new_message.text = user.username
-    }
-
-    override fun getLayout(): Int {
-        return R.layout.user_row_new_messages
     }
 }
-
-class currentUser(val username: String, val email: String, val needs: ArrayList<String>()){
-    constructor() : this("", "", "")
-}*/

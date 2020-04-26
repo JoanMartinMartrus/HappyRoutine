@@ -33,7 +33,7 @@ class Estadisticas_weight : AppCompatActivity() {
         drawChart()
     }
 
-    fun enterNewWeight(view: View){
+    /*fun enterNewWeight(view: View){
         if(weightEntry.text.toString().isEmpty()){
             weightEntry.error = "Please, enter your weight"
             weightEntry.requestFocus()
@@ -61,7 +61,7 @@ class Estadisticas_weight : AppCompatActivity() {
         //Refresh chart
         showLimits()
         drawChart()
-    }
+    }*/
 
     private fun drawChart(){
         //Get weight and date lists from Firebase
@@ -121,10 +121,10 @@ class Estadisticas_weight : AppCompatActivity() {
                     lineChart.animateX(1800, Easing.EaseInOutBack)
 
                     //Checking value points enabled
-                    val markerView = customChart(this, R.layout.chart_marker_view)
+                    /*val markerView = customChart(this, R.layout.chart_marker_view)
                     lineChart.marker = markerView
                     lineChart.notifyDataSetChanged()
-                    lineChart.invalidate()
+                    lineChart.invalidate()*/
                 }
             }
     }
