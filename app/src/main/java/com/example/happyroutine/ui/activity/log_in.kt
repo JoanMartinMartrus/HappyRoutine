@@ -75,6 +75,7 @@ class log_in : AppCompatActivity() {
     fun goToSignUp(view: View) {
         val intent = Intent(this, sign_up::class.java)
         startActivity(intent)
+        finish()
     }
 
     fun goToForgotPassword(view: View) {

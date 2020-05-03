@@ -1,6 +1,7 @@
 package com.example.happyroutine.ui.fragment
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -15,7 +16,9 @@ import com.example.happyroutine.ui.activity.MainActivity
 import com.example.happyroutine.ui.activity.log_in
 import com.example.happyroutine.ui.activity.user_information
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.activity_log_in.*
 import kotlinx.android.synthetic.main.fragment_edit_profile.*
 
 /**
@@ -24,6 +27,9 @@ import kotlinx.android.synthetic.main.fragment_edit_profile.*
 
 
 class EditProfileFragment : Fragment() {
+
+    private val db = FirebaseFirestore.getInstance().collection("users")
+    private val uid = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,7 +73,9 @@ class EditProfileFragment : Fragment() {
         }
         delete_profile.setOnClickListener {
             activity.let {
+                db.document(uid).delete()
                 FirebaseAuth.getInstance().currentUser!!.delete()
+                FirebaseAuth.getInstance().signOut()
                 val intent = Intent(it, MainActivity::class.java)
                 it?.startActivity(intent)
             }

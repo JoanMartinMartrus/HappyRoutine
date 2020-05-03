@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.happyroutine.R
 import com.example.happyroutine.ui.fragment.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class Navigation_bar_main : AppCompatActivity()  {
 
@@ -39,7 +41,25 @@ class Navigation_bar_main : AppCompatActivity()  {
                     true
                 }
                 R.id.social -> {
-                    showSelectedFragment(SocialFragment());
+                    val db = FirebaseFirestore.getInstance().collection("users")
+                    val uid = FirebaseAuth.getInstance().currentUser?.uid.toString()
+                    var platformUser : Boolean? = false
+
+                    db.document(uid).get()
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val document = task.result
+                                if (document!!.exists()) {
+                                    platformUser = document["participantPlatform"] as Boolean
+                                }
+                            }
+                            if (platformUser!!) {
+                                showSelectedFragment(SocialFragment());
+                            }
+                            else{
+                                showSelectedFragment(SocialJoinPlatform());
+                            }
+                        }
                     true
                 }
                 else -> false
