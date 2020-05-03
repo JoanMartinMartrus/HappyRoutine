@@ -2,27 +2,39 @@ package com.example.happyroutine.ui.fragment
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
+import android.transition.Slide
+import android.transition.TransitionManager
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ExpandableListView
+import android.widget.LinearLayout
+import android.widget.PopupWindow
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.example.happyroutine.R
 import com.example.happyroutine.ui.activity.ExpandableAdapter
 import com.example.happyroutine.ui.activity.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.*
+import kotlinx.android.synthetic.main.activity_user_information.*
+import kotlinx.android.synthetic.main.fragment_social_join_platform.*
 import kotlinx.android.synthetic.main.fragment_social_messages.*
+import java.util.zip.Inflater
 
 class SocialFragment : Fragment() {
 
@@ -48,9 +60,8 @@ class SocialFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //mDrawerToggle = ActionBarDrawerToggle(this.context as Activity?, drawer_layout, R.string.open, R.string.close)
-        mDrawerToggle = ActionBarDrawerToggle(activity, drawer_layout, social_toolbar, R.string.open, R.string.close)
 
+        mDrawerToggle = ActionBarDrawerToggle(activity, drawer_layout, social_toolbar, R.string.open, R.string.close)
         mDrawerToggle!!.isDrawerIndicatorEnabled = true
         activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
         social_toolbar.title = "HappyRoutine Messenger"
@@ -58,6 +69,7 @@ class SocialFragment : Fragment() {
         mDrawerToggle!!.syncState()
 
         expList = exp_list
+
         setChildren()
     }
 
