@@ -1,6 +1,5 @@
 package com.example.happyroutine.ui.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import com.example.happyroutine.R
-import com.example.happyroutine.ui.activity.Estadisticas_weight
 import kotlinx.android.synthetic.main.fragment_estadisticas_main.*
 
 /**

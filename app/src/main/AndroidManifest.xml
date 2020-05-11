@@ -10,16 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.activity.social"></activity>
         <activity android:name=".ui.activity.user_information" />
         <activity android:name=".ui.activity.forgot_my_password" />
-        <activity android:name=".ui.activity.Estadisticas_weight"/>
         <activity android:name=".ui.activity.customChart"/>
         <activity android:name=".ui.activity.Navigation_bar_main"/>
         <activity android:name=".ui.activity.sign_up" />
-        <activity android:name=".ui.activity.routine" />
-        <activity android:name=".ui.activity.exercise" />
-        <activity android:name=".ui.activity.diet" />
         <activity android:name=".ui.activity.log_in" />
         <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
