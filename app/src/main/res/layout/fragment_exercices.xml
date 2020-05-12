@@ -186,15 +186,15 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="15dp" />
+
                 <Spinner
                     android:id="@+id/FullBody"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:popupBackground="@color/white"
-                    android:paddingHorizontal="20dp"
                     android:background="@drawable/rounded_spinner"
-                    />
+                    android:paddingHorizontal="20dp"
+                    android:popupBackground="@color/white"
+                    android:textAlignment="center" />
 
 
             </LinearLayout>

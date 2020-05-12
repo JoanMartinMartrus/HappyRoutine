@@ -52,9 +52,9 @@ class ExercicesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //FullBody.setOnItemClickListener { parent, view1, position, id ->
-            //println("\n imprimo name: "+fullBody.get(position));
-        //}
+        /*FullBody.setOnItemClickListener { parent, view1, position, id ->
+            //println("\n imprimo name: "+position);
+        }*/
     }
 
     private fun getQueryWhere(id_spinner:Int, title_spinner:String, view:View, name:String, db: CollectionReference) {
