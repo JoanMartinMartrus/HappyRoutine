@@ -26,14 +26,26 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.example.happyroutine.R
+import com.example.happyroutine.ui.activity.ChatLogActivity
+import com.example.happyroutine.ui.activity.ChatMessage
 import com.example.happyroutine.ui.activity.ExpandableAdapter
 import com.example.happyroutine.ui.activity.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.Item
+import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.*
+import kotlinx.android.synthetic.main.active_chats_row.*
+import kotlinx.android.synthetic.main.active_chats_row.view.*
+import kotlinx.android.synthetic.main.active_chats_row.view.textView_latest_messages_username
 import kotlinx.android.synthetic.main.activity_user_information.*
+import kotlinx.android.synthetic.main.fragment_diet.*
 import kotlinx.android.synthetic.main.fragment_social_join_platform.*
 import kotlinx.android.synthetic.main.fragment_social_messages.*
+import kotlinx.android.synthetic.main.user_row_new_messages.*
+import kotlinx.android.synthetic.main.user_row_new_messages.view.*
+import kotlinx.android.synthetic.main.user_row_new_messages.view.username_textview_new_message_drawer
 import java.util.zip.Inflater
 
 class SocialFragment : Fragment() {
@@ -48,6 +60,12 @@ class SocialFragment : Fragment() {
     private var dietList = ArrayList<String>()
     private var trainerList = ArrayList<String>()
     private var companyList = ArrayList<String>()
+    private var recommendedPairList = ArrayList<Pair<String, String>>()
+    private var dietPairList = ArrayList<Pair<String, String>>()
+    private var trainerPairList = ArrayList<Pair<String, String>>()
+    private var companyPairList = ArrayList<Pair<String, String>>()
+    private var root: View? = null
+    private val adapter = GroupAdapter<ViewHolder>()
 
 
     override fun onCreateView(
@@ -55,7 +73,8 @@ class SocialFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_social_messages, container, false)
+        root =  inflater.inflate(R.layout.fragment_social_messages, container, false)
+        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,10 +86,78 @@ class SocialFragment : Fragment() {
         social_toolbar.title = "HappyRoutine Messenger"
         social_toolbar.setTitleTextColor(Color.WHITE)
         mDrawerToggle!!.syncState()
+        recyclerview_active_chats.adapter = adapter
 
         expList = exp_list
-
+        listenForLatestMessages()
         setChildren()
+
+        adapter.setOnItemClickListener { item, view ->
+            val intent = Intent(activity, ChatLogActivity::class.java)
+            val row = item as LatestMessagesRow
+            intent.putExtra(USER_KEY1, view.textView_latest_messages_username.text)
+            intent.putExtra(USER_KEY2, row.userId)
+            startActivity(intent)
+        }
+    }
+    companion object {
+        val USER_KEY1 = "username"
+        val USER_KEY2 = "id"
+    }
+
+    private val latestMessagesMap = HashMap<String, LatestMessagesRow>()
+
+    private fun refreshRecyclerView(){
+        adapter.clear()
+        latestMessagesMap.forEach {
+            adapter.add(it.value)
+        }
+    }
+
+    private fun listenForLatestMessages(){
+        val fromId = FirebaseAuth.getInstance().currentUser?.uid
+        val ref = FirebaseFirestore.getInstance().collection("/latest-messages/$fromId/$fromId")
+
+        ref.addSnapshotListener { value, e ->
+            //adapter.clear()
+            for(doc in value!!){
+                val toId = doc.id
+                val ref2 = FirebaseFirestore.getInstance().collection("/latest-messages/$fromId/$fromId/$toId/$toId")
+
+                ref2.addSnapshotListener { messageValue, ex ->
+                    val messagesList = ArrayList<Pair<Pair<String, String>, Pair<String, Long>>>()
+                    for(message in messageValue!!){
+                        messagesList.add(Pair(Pair(message.getString("fromId"), message.getString("toId")),
+                            Pair(message.getString("text"), message.getLong("timestamp"))) as Pair<Pair<String, String>, Pair<String, Long>>)
+                    }
+                    messagesList.sortBy { it.second.second }
+                    db.document(messagesList[messagesList.lastIndex].first.second)
+                        .get().addOnCompleteListener { task->
+                            if(task.isSuccessful){
+                                val document = task.result
+                                if (document!!.exists()) {
+                                    val username = document.get("name").toString().plus(" ")
+                                        .plus(document.get("surname").toString())
+                                    val id = messagesList[messagesList.lastIndex].first.second
+                                    val text = messagesList[messagesList.lastIndex].second.first
+
+                                    //val chatMessage = LatestMessagesRow(id, username, text)
+                                    latestMessagesMap[toId] = LatestMessagesRow(id, username, text)
+                                    refreshRecyclerView()
+                                }
+                            }
+
+                    }
+                    //val chatMessage = LatestMessagesRow(messagesList[messagesList.lastIndex].second.first)
+                    //latestMessagesMap[toId] = chatMessage
+                    //refreshRecyclerView()
+                    //adapter.add(chatMessage)
+                }
+
+                //val chatMessage = ChatMessage(doc.metadata)
+                //adapter.add(LatestMessagesRow(chatMessage))
+            }
+        }
     }
 
     @SuppressLint("WrongConstant")
@@ -107,16 +194,23 @@ class SocialFragment : Fragment() {
                                         if (otherOffers[i] == need) {
                                             recommendedList.add(username
                                                 .plus(" (").plus(need).plus(")"))
+                                            recommendedPairList.add(
+                                                Pair(username
+                                                    .plus(" (").plus(need).plus(")"), document.id)
+                                            )
                                         }
                                         //Add the user to the corresponding group based on what it offers
                                         if (otherOffers[i] == "Diet Advice") {
                                             dietList.add(username)
+                                            dietPairList.add(Pair(username, document.id))
                                         }
                                         if (otherOffers[i] == "Exercise advice") {
                                             trainerList.add(username)
+                                            trainerPairList.add(Pair(username, document.id))
                                         }
                                         if (otherOffers[i] == "Company") {
                                             companyList.add(username)
+                                            companyPairList.add(Pair(username, document.id))
                                         }
                                     }
                                 }
@@ -124,9 +218,13 @@ class SocialFragment : Fragment() {
                         }
                         //Sort every list so the users appear alphabetically
                         recommendedList.sort()
+                        recommendedPairList.sortBy { it.first }
                         dietList.sort()
+                        dietPairList.sortBy { it.first }
                         trainerList.sort()
+                        trainerPairList.sortBy { it.first }
                         companyList.sort()
+                        companyPairList.sortBy { it.first }
 
                         //Add all lists to ExpandableListView
                         val childList = ArrayList<ArrayList<String>>()
@@ -141,20 +239,57 @@ class SocialFragment : Fragment() {
                         expList!!.setOnChildClickListener {
                                 parent, v, groupPosition, childPosition, id ->
 
-                            /*
-                             * Per obtenir el username, accedeix a l'array bidimensional amb:
-                             * childList[groupPosition][childPosition]
-                             * on groupPosition és el bloc on es troba l'usuari (dieta, entrenament...)
-                             * i childPosition la posició de l'usuari en aquest bloc.
-                            */
-                            Log.i("user", childList[groupPosition][childPosition])
-                            //Prova per iniciar una activity al fer click sobre un usuari qualsevol.
-                            //val intent = Intent(activity, MainActivity::class.java)
-                            //drawer_layout.closeDrawer(Gravity.START)
-                            //startActivity(intent)
+                            val intent = Intent(activity, ChatLogActivity::class.java)
+                            var usernameChatLog = childList[groupPosition][childPosition]
+
+                            if(groupPosition == 0){
+                                if(usernameChatLog.contains(" (Diet Advice)", ignoreCase = true)
+                                    || usernameChatLog.contains(" (Training Advice)", ignoreCase = true)){
+                                    println("IM IN")
+                                    usernameChatLog = usernameChatLog.removeSuffix(" Advice)")
+                                    usernameChatLog = usernameChatLog.plus(")")
+                                }
+
+                                intent.putExtra(USER_KEY2, recommendedPairList[childPosition].second)
+                            }
+
+                            if(groupPosition == 1){
+                                usernameChatLog = usernameChatLog.plus(" (Diet)")
+                                intent.putExtra(USER_KEY2, dietPairList[childPosition].second)
+                            }
+
+                            if(groupPosition == 2){
+                                usernameChatLog = usernameChatLog.plus(" (Training)")
+                                intent.putExtra(USER_KEY2, trainerPairList[childPosition].second)
+                            }
+
+                            if(groupPosition == 3){
+                                usernameChatLog = usernameChatLog.plus(" (Company)")
+                                intent.putExtra(USER_KEY2, companyPairList[childPosition].second)
+                            }
+
+                            intent.putExtra(USER_KEY1, usernameChatLog)
+
+                            drawer_layout.closeDrawer(Gravity.START)
+                            startActivity(intent)
                             false
                         }
                     }
             }
+    }
+}
+
+//class LatestMessagesRow(private val chatMessage: ChatMessage) : Item<ViewHolder>(){
+class LatestMessagesRow(private val id: String, private val user: String, private val message: String) : Item<ViewHolder>(){
+    val userId = id
+
+    override fun getLayout(): Int {
+        return R.layout.active_chats_row
+    }
+
+    override fun bind(viewHolder: ViewHolder, position: Int) {
+        //val userId = id
+        viewHolder.itemView.textView_latest_messages_username.text = user
+        viewHolder.itemView.textView_latest_messages_message.text = message
     }
 }

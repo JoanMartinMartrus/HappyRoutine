@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.happyroutine">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,12 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.activity.social"></activity>
+        <activity android:name=".ui.activity.ChatLogActivity"/>
+        <activity android:name=".ui.activity.social" />
         <activity android:name=".ui.activity.user_information" />
         <activity android:name=".ui.activity.forgot_my_password" />
-        <activity android:name=".ui.activity.Estadisticas_weight"/>
-        <activity android:name=".ui.activity.customChart"/>
-        <activity android:name=".ui.activity.Navigation_bar_main"/>
+        <activity android:name=".ui.activity.Estadisticas_weight" />
+        <activity android:name=".ui.activity.customChart" />
+        <activity android:name=".ui.activity.Navigation_bar_main" />
         <activity android:name=".ui.activity.sign_up" />
         <activity android:name=".ui.activity.routine" />
         <activity android:name=".ui.activity.exercise" />
