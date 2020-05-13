@@ -119,7 +119,6 @@ class SocialFragment : Fragment() {
         val ref = FirebaseFirestore.getInstance().collection("/latest-messages/$fromId/$fromId")
 
         ref.addSnapshotListener { value, e ->
-            //adapter.clear()
             for(doc in value!!){
                 val toId = doc.id
                 val ref2 = FirebaseFirestore.getInstance().collection("/latest-messages/$fromId/$fromId/$toId/$toId")
@@ -131,31 +130,22 @@ class SocialFragment : Fragment() {
                             Pair(message.getString("text"), message.getLong("timestamp"))) as Pair<Pair<String, String>, Pair<String, Long>>)
                     }
                     messagesList.sortBy { it.second.second }
-                    db.document(messagesList[messagesList.lastIndex].first.second)
+                    db.document(toId)
                         .get().addOnCompleteListener { task->
                             if(task.isSuccessful){
                                 val document = task.result
                                 if (document!!.exists()) {
                                     val username = document.get("name").toString().plus(" ")
                                         .plus(document.get("surname").toString())
-                                    val id = messagesList[messagesList.lastIndex].first.second
+                                    val id = toId
                                     val text = messagesList[messagesList.lastIndex].second.first
 
-                                    //val chatMessage = LatestMessagesRow(id, username, text)
                                     latestMessagesMap[toId] = LatestMessagesRow(id, username, text)
                                     refreshRecyclerView()
                                 }
                             }
-
                     }
-                    //val chatMessage = LatestMessagesRow(messagesList[messagesList.lastIndex].second.first)
-                    //latestMessagesMap[toId] = chatMessage
-                    //refreshRecyclerView()
-                    //adapter.add(chatMessage)
                 }
-
-                //val chatMessage = ChatMessage(doc.metadata)
-                //adapter.add(LatestMessagesRow(chatMessage))
             }
         }
     }
@@ -279,7 +269,6 @@ class SocialFragment : Fragment() {
     }
 }
 
-//class LatestMessagesRow(private val chatMessage: ChatMessage) : Item<ViewHolder>(){
 class LatestMessagesRow(private val id: String, private val user: String, private val message: String) : Item<ViewHolder>(){
     val userId = id
 
@@ -288,7 +277,6 @@ class LatestMessagesRow(private val id: String, private val user: String, privat
     }
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
-        //val userId = id
         viewHolder.itemView.textView_latest_messages_username.text = user
         viewHolder.itemView.textView_latest_messages_message.text = message
     }
