@@ -1,13 +1,12 @@
 package com.example.happyroutine.ui.model
 
 class Exercice (name: String, description: String, favourite: Boolean, gifURL: String,
-                token: String, level: String, muscles: String,objectives: String, id:String) {
+                level: String, muscles: String,objectives: String, id:String) {
 
     var name: String = ""
     var description: String? = null
     var favourite: Boolean? = null
     var gifURL: String? = null
-    var token: String? = null
     var level: String? = null
     var muscles: String? = null
     var objectives: String? = null
@@ -19,7 +18,6 @@ class Exercice (name: String, description: String, favourite: Boolean, gifURL: S
         this.favourite=favourite
         this.gifURL=gifURL
         this.level=level
-        this.token=token
         this.muscles=muscles
         this.objectives=objectives
         this.id=id

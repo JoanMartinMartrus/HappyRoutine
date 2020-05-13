@@ -1,14 +1,14 @@
 package com.example.happyroutine.ui.fragment
 
 import android.content.ContentValues
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.TextView
+import android.widget.*
 
 import com.example.happyroutine.R
 import com.example.happyroutine.ui.model.Exercice
@@ -46,11 +46,12 @@ class ShowExerciceFragment( val name: String) : Fragment() {
     }
 
     private fun paintScreen(exercice: Exercice,view: View){
-        //TODO:PINTAR VIDEO
         val name: TextView =view.findViewById(R.id.name)
         name.text=exercice.name
         val objective: TextView =view.findViewById(R.id.objective)
-        objective.text=exercice.objectives
+        if(exercice.objectives.equals("GET_STRONG")){
+            objective.text= "get stronger"
+        }
         //TODO: dependiendo del objetivo escribo una cosa o otra preguntar a joan los objetivos finales
         val level: TextView =view.findViewById(R.id.level)
         level.text= exercice.level?.toLowerCase() ?: ""
@@ -58,7 +59,23 @@ class ShowExerciceFragment( val name: String) : Fragment() {
         description.text=exercice.description
         val favourite:CheckBox=view.findViewById(R.id.checkBox)
         favourite.isChecked= exercice.favourite!!
+
+        //video
+        val video:VideoView=view.findViewById(R.id.video)
+        try {
+            val mediaController:MediaController= MediaController(view.context)
+            video.setMediaController(mediaController)
+            mediaController.setAnchorView(video)
+            video.setVideoURI(Uri.parse(exercice.gifURL))
+            video.start()
+        }catch (e:Exception){
+            Toast.makeText(view.context,"error: "+e.message,Toast.LENGTH_LONG).show()
+        }
+
+
     }
+
+
     private  fun getExercice(name:String,view: View) {
         db.whereEqualTo("name", name).get()
             .addOnSuccessListener { documents ->
@@ -66,8 +83,8 @@ class ShowExerciceFragment( val name: String) : Fragment() {
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                     exercice= Exercice( document.get("name").toString(), document.get("description").toString(),
                         document.get("favourite").toString().toBoolean(), document.get("gifURL").toString(),
-                        document.get("token").toString(), document.get("level").toString(),
-                        document.get("muscles").toString(),document.get("objectives").toString(),document.id)
+                        document.get("level").toString(),document.get("muscles").toString(),
+                        document.get("objectives").toString(),document.id)
                     paintScreen(exercice!!,view )
                 }
             }
@@ -83,7 +100,6 @@ class ShowExerciceFragment( val name: String) : Fragment() {
             "favourite" to exercice.favourite,
             "gifURL" to exercice.gifURL,
             "level" to exercice.level,
-            "token" to exercice.token,
             "muscles" to exercice.muscles,
             "objectives" to exercice.objectives
         )
