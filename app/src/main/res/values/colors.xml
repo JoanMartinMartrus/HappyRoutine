@@ -9,5 +9,6 @@
     <color name="titleColor">#3641A3</color>
     <color name="roundedButtonColor">#018786</color>
     <color name="white">#FFFFFF</color>
+    <color name="blue_dark">#109998</color>
 
 </resources>
