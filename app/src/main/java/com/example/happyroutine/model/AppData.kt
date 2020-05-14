@@ -8,15 +8,16 @@ import com.example.happyroutine.model.enums.OfferType
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.delay
 
-class AppData() {
+object AppData {
 
     private val foodDb = FirebaseFirestore.getInstance().collection("food")
     private val userDb = FirebaseFirestore.getInstance().collection("users")
 
 
     var user: User = User()
-    lateinit var foodList : List<Food>
+    var foodList : List<Food> = mutableListOf()
 
 
     fun initData() {
@@ -34,12 +35,12 @@ class AppData() {
                     user.email = doc.get("email").toString()
                     user.dateOfBirth = doc.get("birthday") as Timestamp?
                     user.gender = genderTypeByString(doc.get("gender").toString())
-                     if (doc.get("icon_url") != null) {
-                         user.iconUserURL=doc.get("icon_url").toString()
+                    if (doc.get("icon_url") != null) {
+                        user.iconUserURL = doc.get("icon_url").toString()
 
-                     } else {
-                         user.iconUserURL = ""
-                     }
+                    } else {
+                        user.iconUserURL = ""
+                    }
                     user.platform = doc.get("participantPlatform") as Boolean?
 
                     user.diet = mutableListOf<DietType>()
@@ -66,41 +67,58 @@ class AppData() {
                     user.objective = objectiveTypeByString(doc.get("objective").toString())
 
                     //init food
-                    query = foodDb.whereArrayContains("objectives", "Gain weight") // TODO !! correct user.objective?.objectiveName!!
-                    query.get().addOnCompleteListener {task ->
+                    foodDb.get().addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             foodList = task.result!!.toObjects(Food::class.java)
-                            for (food in foodList) {
-                                Log.i("DB----->", food.name)
-                                Log.i("DB----->", food.objectives.toString())
-                                Log.i("DB----->", food.diet.toString())
-                            }
-
-                            query = foodDb.whereArrayContains("objectives", "Lose weight") // TODO !! correct
-                            query.get().addOnCompleteListener {task ->
-                                if (task.isSuccessful) {
-                                    foodList = (foodList intersect task.result!!.toObjects(Food::class.java)).toList()
-                                    Log.i("DB2----->", foodList.toString())
-                                    for (food in foodList) {
-                                        Log.i("DB----->", food.name)
-                                        Log.i("DB----->", food.objectives.toString())
-                                        Log.i("DB----->", food.diet.toString())
-                                    }
-                                }
-
-                            }
-
+                            foodList = filterFood(user)
+                        }
                     }
-
-
-                    }
-
                 }
             }
 
         }
 
+    }
 
+    private fun filterFood(user: User): List<Food> {
+        var finalList = mutableListOf<Food>()
+
+        var objectiveFoodList = mutableListOf<Food>()
+        for (food in foodList) {
+            if (user.objective?.objectiveName in food.objectives) {
+                objectiveFoodList.add(food)
+            }
+        }
+
+        var vegFoodList = mutableListOf<Food>()
+        var celFoodList = mutableListOf<Food>()
+        var lacFoodList = mutableListOf<Food>()
+
+        for (elementDiet in user.diet!!) {
+            for(food in foodList) {
+                if (elementDiet.dietName == "Vegetarian" && elementDiet.dietName in food.diet) {
+                    vegFoodList.add(food)
+                } else if (elementDiet.dietName == "Lactose intolerant" && elementDiet.dietName in food.diet) {
+                    lacFoodList.add(food)
+                } else if (elementDiet.dietName == "Celiac" && elementDiet.dietName in food.diet) {
+                    celFoodList.add(food)
+                }
+
+            }
+        }
+
+        finalList = objectiveFoodList
+        if (!vegFoodList.isEmpty()) {
+            finalList = (finalList intersect vegFoodList).toMutableList()
+        }
+        if (!celFoodList.isEmpty()) {
+            finalList = (finalList intersect celFoodList).toMutableList()
+        }
+        if (!lacFoodList.isEmpty()) {
+            finalList = (finalList intersect lacFoodList).toMutableList()
+        }
+
+        return finalList
     }
 
     private fun objectiveTypeByString(objective: String): ObjectiveType {

@@ -11,6 +11,7 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.happyroutine.R
+import com.example.happyroutine.model.AppData
 import com.example.happyroutine.ui.dialog.DatePickerFragment
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
