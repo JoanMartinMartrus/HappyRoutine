@@ -1,12 +1,14 @@
 package com.example.happyroutine.ui.activity
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.happyroutine.R
+import com.example.happyroutine.model.AppData
 import com.example.happyroutine.ui.fragment.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -17,6 +19,12 @@ class Navigation_bar_main : AppCompatActivity()  {
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val appData : AppData = AppData()
+
+        appData.initData()
+
+
         setContentView(R.layout.activity_navigation_bar_main)
         showSelectedFragment(EditProfileFragment());
         requestedOrientation= ActivityInfo.SCREEN_ORIENTATION_PORTRAIT

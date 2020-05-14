@@ -1,5 +1,5 @@
 package com.example.happyroutine.model.enums
 
 enum class DietType {
-    VEGAN, VEGETARIAN, OMNIVORE
+    CELIAC, VEGETARIAN, LACTOSE_INTOLERANT, UNKNOWN
 }
