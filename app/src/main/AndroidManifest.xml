@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".ui.activity.user_information" />
+        <activity android:name=".ui.activity.ChatLogActivity"/>
         <activity android:name=".ui.activity.forgot_my_password" />
         <activity android:name=".ui.activity.customChart"/>
         <activity android:name=".ui.activity.Navigation_bar_main"/>
