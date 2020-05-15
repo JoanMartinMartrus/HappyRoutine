@@ -34,13 +34,13 @@
         android:background="@drawable/rounded_button_border"
         android:onClick="goToSignUp"
         android:text="@string/button_goToSignUp"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintHorizontal_bias="0.405"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.814"
-        android:textColor="@color/colorPrimaryDark"/>
+        app:layout_constraintTop_toBottomOf="@+id/button_goToLogIn"
+        app:layout_constraintVertical_bias="0.121" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -49,9 +49,7 @@
         android:layout_marginStart="37dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="38dp"
-        android:layout_marginBottom="164dp"
         android:contentDescription="@string/logo_happyRoutine"
-        app:layout_constraintBottom_toTopOf="@+id/button_goToLogIn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -63,19 +61,20 @@
         android:layout_height="97dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="100dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="100dp"
-        android:layout_weight="1"
 
+        android:layout_weight="1"
         android:fontFamily="@font/satisfy"
         android:text="@string/slogan"
+        android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="26sp"
         app:layout_constraintBottom_toTopOf="@+id/button_goToLogIn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.325"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.861" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.26" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

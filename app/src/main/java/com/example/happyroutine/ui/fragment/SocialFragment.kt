@@ -46,6 +46,8 @@ import kotlinx.android.synthetic.main.fragment_social_messages.*
 import kotlinx.android.synthetic.main.user_row_new_messages.*
 import kotlinx.android.synthetic.main.user_row_new_messages.view.*
 import kotlinx.android.synthetic.main.user_row_new_messages.view.username_textview_new_message_drawer
+import java.sql.Date
+import java.text.SimpleDateFormat
 import java.util.zip.Inflater
 
 class SocialFragment : Fragment() {
@@ -139,8 +141,10 @@ class SocialFragment : Fragment() {
                                         .plus(document.get("surname").toString())
                                     val id = toId
                                     val text = messagesList[messagesList.lastIndex].second.first
+                                    val format = SimpleDateFormat("HH:mm")
+                                    val hour = format.format(Date(messagesList[messagesList.lastIndex].second.second))
 
-                                    latestMessagesMap[toId] = LatestMessagesRow(id, username, text)
+                                    latestMessagesMap[toId] = LatestMessagesRow(id, username, text, hour)
                                     refreshRecyclerView()
                                 }
                             }
@@ -269,8 +273,10 @@ class SocialFragment : Fragment() {
     }
 }
 
-class LatestMessagesRow(private val id: String, private val user: String, private val message: String) : Item<ViewHolder>(){
+class LatestMessagesRow(private val id: String, private val user: String, private val message: String,
+                        private val hour: String) : Item<ViewHolder>(){
     val userId = id
+    val latestHour = hour
 
     override fun getLayout(): Int {
         return R.layout.active_chats_row
@@ -278,6 +284,14 @@ class LatestMessagesRow(private val id: String, private val user: String, privat
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.textView_latest_messages_username.text = user
-        viewHolder.itemView.textView_latest_messages_message.text = message
+        if(message.length < 20){
+            viewHolder.itemView.textView_latest_messages_message.text = message.plus(" (at ")
+                .plus(latestHour).plus(")")
+        }
+        else{
+            viewHolder.itemView.textView_latest_messages_message.text = message.take(20)
+                .plus("... (at ").plus(latestHour).plus(")")
+        }
+
     }
 }

@@ -4,10 +4,10 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.view.size
 import com.example.happyroutine.R
 import com.example.happyroutine.ui.fragment.SocialFragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
@@ -15,6 +15,9 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat_log.*
 import kotlinx.android.synthetic.main.chat_from_row.view.*
 import kotlinx.android.synthetic.main.chat_to_row.view.*
+import java.sql.Date
+import java.text.SimpleDateFormat
+import kotlin.collections.ArrayList
 
 class ChatLogActivity : AppCompatActivity() {
 
@@ -34,12 +37,17 @@ class ChatLogActivity : AppCompatActivity() {
         button_send_chat_log.setOnClickListener {
             sendMessage()
         }
+
+        toolbar_chat_log.setNavigationOnClickListener{
+            finish()
+        }
     }
 
     private fun listenForMessages(){
         val fromId = FirebaseAuth.getInstance().currentUser?.uid.toString()
         val toId = intent.getStringExtra(SocialFragment.USER_KEY2) as String
         val ref = FirebaseFirestore.getInstance().collection("/user-messages/$fromId/$toId")
+        var messagePosition = 0
 
         ref.addSnapshotListener { value, e ->
             adapter.clear()
@@ -52,14 +60,18 @@ class ChatLogActivity : AppCompatActivity() {
 
             messagesList.sortBy { it.second.second }
             for(message in messagesList){
+                val format = SimpleDateFormat("HH:mm")
+                val hour = format.format(Date(message.second.second * 1000))
+                messagePosition += 1
                 if(message.first.first == FirebaseAuth.getInstance().uid){
-                   adapter.add(ChatToItem(message.second.first))
+                   adapter.add(ChatToItem(message.second.first, hour))
                 }
                 else{
-                    adapter.add(ChatFromItem(message.second.first))
+                    adapter.add(ChatFromItem(message.second.first, hour))
                 }
             }
             recyclerview_chat_log.adapter = adapter
+            recyclerview_chat_log.smoothScrollToPosition(messagePosition)
         }
 
     }
@@ -100,22 +112,24 @@ class ChatMessage(val id: String, val text: String, val fromId: String, val toId
     constructor() : this("", "", "", "", -1)
 }
 
-class ChatFromItem(val text: String): Item<ViewHolder>(){
+class ChatFromItem(val text: String, val hour: String): Item<ViewHolder>(){
     override fun getLayout(): Int {
         return R.layout.chat_from_row
     }
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.textView_chat_from_row.text = text
+        viewHolder.itemView.textView_from_hour.text = hour
     }
 }
 
-class ChatToItem(val text: String): Item<ViewHolder>(){
+class ChatToItem(val text: String, val hour: String): Item<ViewHolder>(){
     override fun getLayout(): Int {
         return R.layout.chat_to_row
     }
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.textView_chat_to_row.text = text
+        viewHolder.itemView.textView_to_hour.text = hour
     }
 }
