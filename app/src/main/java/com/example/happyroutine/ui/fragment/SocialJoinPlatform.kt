@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.happyroutine.R
@@ -31,20 +32,28 @@ class SocialJoinPlatform : Fragment() {
         checkBoxPlatformAnswerSocial.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 optionsLayout.visibility=View.VISIBLE
+                button_join_platform.visibility=View.VISIBLE
             }else {
                 optionsLayout.visibility=View.INVISIBLE
+                button_join_platform.visibility = View.INVISIBLE
             }
         }
         button_join_platform.setOnClickListener {
-            val offer = getOffer()
-            val needs = getNeeds()
-            db.document(uid).update("participantPlatform", true)
-            db.document(uid).update("offer", offer)
-            db.document(uid).update("needs", needs)
+            if((offerCompanyCheckbox2.isChecked || offerDietAdviceCheckbox2.isChecked || offerCompanyCheckbox2.isChecked)
+                && (needsCompanyCheckbox2.isChecked || needsDietAdviceCheckbox2.isChecked || needsExerciseAdviceCheckbox2.isChecked)){
+                val offer = getOffer()
+                val needs = getNeeds()
+                db.document(uid).update("participantPlatform", true)
+                db.document(uid).update("offer", offer)
+                db.document(uid).update("needs", needs)
 
-            fragmentManager?.beginTransaction()
-                ?.replace(R.id.frame_layout_navigation_bar, SocialFragment())?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                ?.commit()
+                fragmentManager?.beginTransaction()
+                    ?.replace(R.id.frame_layout_navigation_bar, SocialFragment())?.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    ?.commit()
+            }
+            else{
+                Toast.makeText(context, "Check your offers and needs", Toast.LENGTH_LONG).show()
+            }
         }
     }
 

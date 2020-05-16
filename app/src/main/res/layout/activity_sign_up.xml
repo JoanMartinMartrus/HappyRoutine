@@ -7,13 +7,22 @@
     android:orientation="vertical"
     android:padding="48dp">
 
-
-    <ImageView
-        android:id="@+id/imageView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="300dp"
-        android:layout_height="196dp"
-        android:contentDescription="@string/logo_happyRoutine"
-        app:srcCompat="@drawable/happy_routine_logo" />
+        android:layout_height="196dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="300dp"
+            android:layout_height="196dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/logo_happyRoutine"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/happy_routine_logo" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText
         android:id="@+id/tv_text_email"
@@ -44,6 +53,9 @@
         android:hint="@string/confirm_password"
         android:importantForAutofill="no"
         android:inputType="textPassword" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="18dp"/>
 
     <Button
         android:id="@+id/button_signUp"
@@ -51,7 +63,7 @@
         android:layout_width="185dp"
         android:layout_height="34dp"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.5"
+        android:layout_weight="0.4"
         android:background="@drawable/rounded_button"
         android:onClick="signUpAndGoUserInformation"
         android:text="@string/sign_up"

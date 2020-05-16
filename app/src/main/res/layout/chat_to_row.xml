@@ -5,21 +5,43 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textView_chat_to_row"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="12dp"
         android:background="@drawable/rounded_chat_to"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:maxWidth="260dp"
-        android:padding="16dp"
-        android:text="This is my second message! This app looks great!"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="end"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView_chat_to_row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="12dp"
+            android:maxWidth="260dp"
+            android:minWidth="80dp"
+            android:padding="4dp"
+            android:text="This is my second message! This app looks great!"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_to_hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView_chat_to_row"
+            android:layout_alignEnd="@id/textView_chat_to_row"
+            android:layout_marginEnd="4dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            tools:text="3/15/2018 3:00 PM" />
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
