@@ -14,10 +14,12 @@ object AppData {
 
     private val foodDb = FirebaseFirestore.getInstance().collection("food")
     private val userDb = FirebaseFirestore.getInstance().collection("users")
+    private val recomendationDb = FirebaseFirestore.getInstance().collection("recomendations")
 
 
     var user: User = User()
     var foodList : List<Food> = mutableListOf()
+    var recomendation: Recomendation = Recomendation()
 
 
     fun initData() {
@@ -73,9 +75,16 @@ object AppData {
                             foodList = filterFood(user)
                         }
                     }
+
+
+                    //init recomendation
+                    query = recomendationDb.whereEqualTo("objective", user.objective?.objectiveName)
+                    query.get().addOnCompleteListener { task ->
+                        var listRecomendation = task.result?.toObjects(Recomendation::class.java)
+                        recomendation = listRecomendation!!.first()
+                    }
                 }
             }
-
         }
 
     }

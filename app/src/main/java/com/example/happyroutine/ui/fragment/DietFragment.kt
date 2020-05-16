@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.happyroutine.R
 import com.example.happyroutine.model.AppData
-import com.example.happyroutine.ui.activity.diet
 import kotlinx.android.synthetic.main.fragment_diet.*
 
 /**
@@ -26,15 +25,22 @@ class DietFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         fillRecommendedFood()
+        fillRecomendations()
         super.onViewCreated(view, savedInstanceState)
     }
 
     private fun fillRecommendedFood() {
         var textToShow = ""
         for (food in AppData.foodList) {
-            textToShow = textToShow + food.name + System.getProperty("line.separator")
+            textToShow = textToShow + "\u25CF" + food.name + System.getProperty("line.separator")
         }
         tv_recomended_food.text = textToShow
+    }
+
+    private fun fillRecomendations() {
+        var textToShow = AppData.recomendation.text.replace("\\n", System.getProperty("line.separator")!!)
+        description_feeding_tips_text.text = textToShow
+
     }
 
 }
