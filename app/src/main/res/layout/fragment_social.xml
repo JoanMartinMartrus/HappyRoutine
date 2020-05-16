@@ -30,7 +30,7 @@
                     android:id="@+id/example_image1"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/testing"
+                    android:src="@drawable/default_photo"
                     app:civ_border_width="1dp"
                     app:civ_border_color="#FFFFFFFF"
                     android:layout_gravity="center"/>
