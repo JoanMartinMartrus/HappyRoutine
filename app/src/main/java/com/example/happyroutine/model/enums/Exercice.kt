@@ -1,4 +1,4 @@
-package com.example.happyroutine.ui.model
+package com.example.happyroutine.model.enums
 
 class Exercice (name: String, description: String, favourite: Boolean, gifURL: String,
                 level: String, muscles: String,objectives: String, id:String) {
