@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.*
 
 import com.example.happyroutine.R
-import com.example.happyroutine.ui.model.Exercice
+import com.example.happyroutine.model.Exercice
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_show_exercice.*
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_show_exercice.*
 class ShowExerciceFragment( val name: String) : Fragment() {
 
     lateinit var db : CollectionReference
-    var exercice:Exercice?=null
+    var exercice: Exercice?=null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +45,7 @@ class ShowExerciceFragment( val name: String) : Fragment() {
         }
     }
 
-    private fun paintScreen(exercice: Exercice,view: View){
+    private fun paintScreen(exercice: Exercice, view: View){
         val name: TextView =view.findViewById(R.id.name)
         name.text=exercice.name
         val objective: TextView =view.findViewById(R.id.objective)
@@ -81,10 +81,16 @@ class ShowExerciceFragment( val name: String) : Fragment() {
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
-                    exercice= Exercice( document.get("name").toString(), document.get("description").toString(),
-                        document.get("favourite").toString().toBoolean(), document.get("gifURL").toString(),
-                        document.get("level").toString(),document.get("muscles").toString(),
-                        document.get("objectives").toString(),document.id)
+                    exercice= Exercice(
+                        document.get("name").toString(),
+                        document.get("description").toString(),
+                        document.get("favourite").toString().toBoolean(),
+                        document.get("gifURL").toString(),
+                        document.get("level").toString(),
+                        document.get("muscles").toString(),
+                        document.get("objectives").toString(),
+                        document.id
+                    )
                     paintScreen(exercice!!,view )
                 }
             }
@@ -93,7 +99,7 @@ class ShowExerciceFragment( val name: String) : Fragment() {
             }
     }
 
-    private fun setAndSaveData(exercice:Exercice){
+    private fun setAndSaveData(exercice: Exercice){
         val data = hashMapOf(
             "name" to exercice.name,
             "description" to exercice.description,

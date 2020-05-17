@@ -25,7 +25,7 @@
             android:id="@+id/profile_image"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:src="@drawable/testing"
+            android:src="@drawable/default_photo"
             app:civ_border_width="1dp"
             app:civ_border_color="#FFFFFFFF"
             android:layout_gravity="center"/>
