@@ -105,6 +105,8 @@
     <string name="joinPlatform">Join Platform</string>
     <string name="you_are_not_participating">you_are_not_participating</string>
     <string name="this_feature_is_only_available_for_users_that_are_participating_at_the_platform">This feature is only available for users that are participating at the platform</string>
+    <string name="go_for_it">Go for it</string>
+    <string name="done">Done</string>
 
     <string-array name="recommended">
         <item>Recommended</item>

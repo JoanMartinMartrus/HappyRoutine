@@ -69,7 +69,7 @@ class ShowExerciceFragment( val name: String) : Fragment() {
             video.setVideoURI(Uri.parse(exercice.gifURL))
             video.start()
         }catch (e:Exception){
-            Toast.makeText(view.context,"error: "+e.message,Toast.LENGTH_LONG).show()
+            Toast.makeText(view.context,"Error: "+e.message,Toast.LENGTH_LONG).show()
         }
 
 
