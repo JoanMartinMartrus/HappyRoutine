@@ -110,7 +110,6 @@ class TrainningFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if(position!=0){
-                    var value:String= expert.getItem(position).toString()
                     fragmentManager?.let {
                         it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowTrainningFragment(expert.getItem(position).toString()))
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -120,6 +119,13 @@ class TrainningFragment : Fragment() {
             }
         }
 
+        view_all_exercices.setOnClickListener {
+            fragmentManager?.let {
+                it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ExercicesFragment())
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .commit()
+            }
+        }
 
     }
 
