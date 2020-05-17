@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.*
 
 import com.example.happyroutine.R
-import com.example.happyroutine.model.enums.Exercice
+import com.example.happyroutine.model.Exercice
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_show_exercice.*
