@@ -142,7 +142,7 @@ class SocialFragment : Fragment() {
                                     val id = toId
                                     val text = messagesList[messagesList.lastIndex].second.first
                                     val format = SimpleDateFormat("HH:mm")
-                                    val hour = format.format(Date(messagesList[messagesList.lastIndex].second.second))
+                                    val hour = format.format(Date(messagesList[messagesList.lastIndex].second.second * 1000))
 
                                     latestMessagesMap[toId] = LatestMessagesRow(id, username, text, hour)
                                     refreshRecyclerView()
