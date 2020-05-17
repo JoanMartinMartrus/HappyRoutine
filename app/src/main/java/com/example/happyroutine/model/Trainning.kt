@@ -1,4 +1,4 @@
-package com.example.happyroutine.ui.model
+package com.example.happyroutine.model
 
 class Trainning  (name: String, advice: String, favourite: Boolean, isDone: Boolean,
                   level: String, exercises: ArrayList<String>,objectives: String, id:String) {

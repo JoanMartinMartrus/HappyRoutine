@@ -1,9 +1,7 @@
 package com.example.happyroutine.ui.fragment
 
-import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,7 +14,7 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 
 import com.example.happyroutine.R
-import com.example.happyroutine.ui.model.Trainning
+import com.example.happyroutine.model.Trainning
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -24,7 +22,6 @@ import kotlinx.android.synthetic.main.fragment_doing_trainning.*
 import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.random.Random
 
 /**
  * A simple [Fragment] subclass.
@@ -32,7 +29,17 @@ import kotlin.random.Random
 class DoingTrainningFragment  ( val name: String) : Fragment() {
 
     lateinit var db : CollectionReference
-    var trainning: Trainning = Trainning("","",false,false,"", ArrayList(),"","")
+    var trainning: Trainning =
+        Trainning(
+            "",
+            "",
+            false,
+            false,
+            "",
+            ArrayList(),
+            "",
+            ""
+        )
     var currentExercice:Int=0
     private val user = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
     private val randomID:UUID= UUID.randomUUID()
@@ -94,11 +101,16 @@ class DoingTrainningFragment  ( val name: String) : Fragment() {
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
-                    trainning= Trainning( document.get("name").toString(), document.get("advice").toString(),
-                        document.get("favourite").toString().toBoolean(), document.get("isDone").toString().toBoolean(),
+                    trainning= Trainning(
+                        document.get("name").toString(),
+                        document.get("advice").toString(),
+                        document.get("favourite").toString().toBoolean(),
+                        document.get("isDone").toString().toBoolean(),
                         document.get("level").toString(),
                         document["exercises"] as ArrayList<String>,
-                        document.get("objectives").toString(),document.id)
+                        document.get("objectives").toString(),
+                        document.id
+                    )
                     paintScreen(trainning,view)
                 }
             }

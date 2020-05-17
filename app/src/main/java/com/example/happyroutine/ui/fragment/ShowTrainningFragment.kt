@@ -6,14 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.happyroutine.R
-import com.example.happyroutine.ui.model.Trainning
+import com.example.happyroutine.model.Trainning
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_show_exercice.checkBox
@@ -25,7 +24,17 @@ import kotlinx.android.synthetic.main.fragment_show_trainning.*
 class ShowTrainningFragment ( val name: String) : Fragment() {
 
     lateinit var db : CollectionReference
-    var trainning: Trainning=Trainning("","",false,false,"", ArrayList(),"","")
+    var trainning: Trainning =
+        Trainning(
+            "",
+            "",
+            false,
+            false,
+            "",
+            ArrayList(),
+            "",
+            ""
+        )
     var currentExercice:Int=0
 
     override fun onCreateView(
@@ -74,11 +83,16 @@ class ShowTrainningFragment ( val name: String) : Fragment() {
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
-                    trainning= Trainning( document.get("name").toString(), document.get("advice").toString(),
-                        document.get("favourite").toString().toBoolean(), document.get("isDone").toString().toBoolean(),
+                    trainning= Trainning(
+                        document.get("name").toString(),
+                        document.get("advice").toString(),
+                        document.get("favourite").toString().toBoolean(),
+                        document.get("isDone").toString().toBoolean(),
                         document.get("level").toString(),
                         document["exercises"] as ArrayList<String>,
-                        document.get("objectives").toString(),document.id)
+                        document.get("objectives").toString(),
+                        document.id
+                    )
                     paintScreen(trainning,view)
                 }
             }
