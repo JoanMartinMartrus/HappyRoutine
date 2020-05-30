@@ -58,7 +58,4 @@ dependencies {
 
     //Multiline RadioGroup
     implementation 'com.yuxingxin.multiradiogroup:library:1.0.0'
-
-    // Firebase Messaging
-    implementation 'com.google.firebase:firebase-messaging:20.2.0'
 }
