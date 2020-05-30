@@ -11,7 +11,6 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.happyroutine.R
-import com.example.happyroutine.model.AppData
 import com.example.happyroutine.ui.dialog.DatePickerFragment
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -47,7 +46,7 @@ class user_information : AppCompatActivity() {
 
     fun goToUserExercise(view: View) {
         clearErrors()
-        if (checkFields()) {
+        if (checkFields() && FirebaseAuth.getInstance().currentUser != null) {
             storeUserInformationData()
         }
     }
@@ -61,14 +60,17 @@ class user_information : AppCompatActivity() {
         val day = edit_text_birthday.text.toString().split("/")[0].trim().toInt()
         val month = edit_text_birthday.text.toString().split("/")[1].trim().toInt() - 1 // January is 0
         val year = edit_text_birthday.text.toString().split("/")[2].trim().toInt()
-        val date = Date(year, month, day)
+        val date = Date((year-1900), month, day)
         val location = edit_text_location.text.toString()
-        val height = edit_text_height.text.toString().toInt()
+        val height = edit_text_height.text.toString().toFloat()
         val objective = getObjective()
         val diet = getDiet()
         val participantPlatform = checkBoxPlatformAnswer.isChecked
         val offer = getOffer()
         val needs = getNeeds()
+        val profileImageUrl = "https://firebasestorage.googleapis.com/v0/b/happyroutine-1a42d.appspot" +
+                ".com/o/profileImages%2Fcffbf657-375d-4617-9817-4dca71bddeaf?alt=media&token=77068c0c" +
+                "-706a-46ee-8fcf-023d402cfa88"
         var weightEntries = ArrayList<Float>()
         weightEntries.add(edit_text_weight.text.toString().toFloat())
         var dateEntries = ArrayList<Timestamp>()
@@ -88,7 +90,8 @@ class user_information : AppCompatActivity() {
             "diet" to diet,
             "participantPlatform" to participantPlatform,
             "offer" to offer,
-            "needs" to needs
+            "needs" to needs,
+            "profileImageUrl" to profileImageUrl
         )
 
         val weightTrack = hashMapOf(
@@ -213,6 +216,13 @@ class user_information : AppCompatActivity() {
             return false
         }
 
+        if(edit_text_birthday.text.toString().isNotEmpty() && checkAge() < 18){
+            edit_text_birthday.error = "You must be over 18"
+            Toast.makeText(baseContext, "You must be over 18", Toast.LENGTH_SHORT).show()
+            edit_text_birthday.requestFocus()
+            return false
+        }
+
         if (edit_text_location.text.toString().isEmpty()) {
             edit_text_location.error = "Please enter your city"
             edit_text_location.requestFocus()
@@ -225,10 +235,28 @@ class user_information : AppCompatActivity() {
             return false
         }
 
+        if (edit_text_height.text.toString().isNotEmpty()) {
+            val number = edit_text_height.text.toString().toFloatOrNull()
+            if(number == null){
+                edit_text_height.error = "Please a number"
+                edit_text_height.requestFocus()
+                return false
+            }
+        }
+
         if (edit_text_weight.text.toString().isEmpty()) {
             edit_text_weight.error = "Please enter your weight"
             edit_text_weight.requestFocus()
             return false
+        }
+
+        if (edit_text_weight.text.toString().isNotEmpty()) {
+            val number = edit_text_weight.text.toString().toFloatOrNull()
+            if(number == null){
+                edit_text_weight.error = "Please a number"
+                edit_text_weight.requestFocus()
+                return false
+            }
         }
 
         if ((rg_line1.checkedRadioButtonId==-1) and (rg_line2.checkedRadioButtonId==-1)) {
@@ -267,4 +295,24 @@ class user_information : AppCompatActivity() {
         tv_needs.setError(null)
     }
 
+    private fun checkAge(): Int{
+        val day = edit_text_birthday.text.toString().split("/")[0].trim().toInt()
+        val month = edit_text_birthday.text.toString().split("/")[1].trim().toInt() - 1
+        val year = edit_text_birthday.text.toString().split("/")[2].trim().toInt()
+        val currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        val currentMonth = Calendar.getInstance().get(Calendar.MONTH)
+        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+
+        val checkMonth = if(currentMonth < month){
+            1
+        } else{
+            0
+        }
+        val checkDay = if(currentDay < day){
+            1
+        } else{
+            0
+        }
+        return (currentYear - year - checkMonth - checkDay)
+    }
 }

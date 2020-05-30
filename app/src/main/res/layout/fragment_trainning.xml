@@ -140,19 +140,22 @@
                     android:paddingHorizontal="20dp"
                     android:background="@drawable/rounded_spinner"
                     />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"/>
+                <Button
+                    android:id="@+id/view_all_exercices"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="@string/view_all_exercices"
+                    android:background="@drawable/rounded_button_border"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_gravity="bottom"
+                    />
 
             </LinearLayout>
         </ScrollView>
 
-        <Button
-            android:id="@+id/view_all_exercices"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="@string/view_all_exercices"
-            android:background="@drawable/rounded_button_border"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_gravity="bottom"
-            />
     <View
         android:layout_width="match_parent"
         android:layout_height="15dp"/>

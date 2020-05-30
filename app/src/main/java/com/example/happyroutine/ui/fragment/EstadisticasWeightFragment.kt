@@ -7,25 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.happyroutine.R
+import com.example.happyroutine.ui.activity.Navigation_bar_main
 import com.example.happyroutine.ui.activity.customChart
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.LimitLine
-import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
-import com.github.mikephil.charting.data.DataSet
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_estadisticas_weight.*
 import java.text.SimpleDateFormat
-import java.util.*
-import java.util.concurrent.TimeUnit
-import kotlin.collections.ArrayList
+
 
 /**
  * A simple [Fragment] subclass.
@@ -41,6 +37,8 @@ class EstadisticasWeightFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val activity: Navigation_bar_main? = activity as Navigation_bar_main?
+        activity?.hideNavBar()
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_estadisticas_weight, container, false)
     }
@@ -51,7 +49,6 @@ class EstadisticasWeightFragment : Fragment() {
         showLimits()
         drawChart()
     }
-
 
     private fun enterNewWeight(view: View){
         if(weightEntry.text.toString().isEmpty()){
@@ -81,6 +78,8 @@ class EstadisticasWeightFragment : Fragment() {
         //Refresh chart
         showLimits()
         drawChart()
+
+        weightEntry.text.clear()
     }
 
     private fun drawChart(){
@@ -96,7 +95,7 @@ class EstadisticasWeightFragment : Fragment() {
 
                     //Sets the entries to be displayed in a list
                     val entries = ArrayList<Entry>()
-                    var index = 1f
+                    var index = 0f
 
                     for(value: Float in weightEntries){
                         entries.add(Entry(index, value))
@@ -105,6 +104,21 @@ class EstadisticasWeightFragment : Fragment() {
 
                     //Assigns the list to LineDataSet and labels it
                     val vl = LineDataSet(entries, "My Weight")
+
+                    //Gets TimeStamps as strings and sets them as date labels
+                    val format = SimpleDateFormat("dd/MM/yy")
+
+                    lineChart.xAxis.valueFormatter = object : ValueFormatter() {
+                        override fun getFormattedValue(value: Float): String {
+                            if(dateEntries.size == 1){
+                                return format.format(dateEntries[0].toDate())
+                            }
+                            else{
+                                return format.format(dateEntries[value.toInt()].toDate())
+                            }
+                        }
+                    }
+                    lineChart.xAxis.textSize = 8f
 
                     //Drawing display configuration
                     vl.setDrawValues(false)
@@ -121,6 +135,8 @@ class EstadisticasWeightFragment : Fragment() {
 
                     //Axis display configuration
                     lineChart.axisRight.isEnabled = false
+                    lineChart.axisLeft.axisMinimum = 0f
+                    lineChart.xAxis.granularity = 1f
 
                     lineChart.setVisibleXRangeMaximum(4f)
                     lineChart.moveViewTo(entries.size.toFloat(), entries.size.toFloat(), YAxis.AxisDependency.LEFT)

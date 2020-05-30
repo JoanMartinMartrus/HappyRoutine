@@ -88,10 +88,9 @@ class sign_up : AppCompatActivity() {
 
 
     fun signUpAndGoUserInformation(view: View) {
-
-
         val intent = Intent(this, user_information::class.java)
         startActivity(intent)
+        finish()
     }
 
     private fun updateUI(currentUser : FirebaseUser?){
