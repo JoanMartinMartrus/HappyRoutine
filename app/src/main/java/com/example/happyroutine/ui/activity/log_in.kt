@@ -5,12 +5,14 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import com.example.happyroutine.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_log_in.*
 
 
@@ -37,7 +39,9 @@ class log_in : AppCompatActivity() {
 
     private fun updateUI(currentUser : FirebaseUser?){
         if(currentUser != null){
+            // Register for the user type notifications
             startActivity(Intent(this, Navigation_bar_main::class.java))
+            finish()
         }
     }
 
@@ -88,13 +92,10 @@ class log_in : AppCompatActivity() {
         val editor = sharedpreferences.edit()
         editor.putBoolean(key, isChecked)
         editor.apply()
-
     }
 
     fun loadCheckBox(key: String):Boolean{
         val sharedpreferences = getPreferences(Context.MODE_PRIVATE)
         return sharedpreferences.getBoolean(key, false)
     }
-
-
 }

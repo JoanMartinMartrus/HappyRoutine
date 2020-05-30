@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.example.happyroutine.R
+import com.google.firebase.FirebaseApp
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +18,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         requestedOrientation= ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        val settings = FirebaseFirestoreSettings.Builder()
+            .setPersistenceEnabled(false)
+            .build()
+
+        FirebaseFirestore.getInstance().firestoreSettings = settings
     }
 
     fun goToLogIn(view: View) {
@@ -25,5 +33,4 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, sign_up::class.java)
         startActivity(intent)
     }
-
 }

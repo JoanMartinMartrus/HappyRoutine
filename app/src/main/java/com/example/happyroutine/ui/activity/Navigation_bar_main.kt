@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -14,6 +15,7 @@ import com.example.happyroutine.ui.fragment.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_navigation_bar_main.*
 
 class Navigation_bar_main : AppCompatActivity()  {
 
@@ -74,8 +76,17 @@ class Navigation_bar_main : AppCompatActivity()  {
         }
     }
 
-    fun  showSelectedFragment(fragment:Fragment){
+    fun hideNavBar(){
+        button_navigation_bar.visibility = View.GONE
+    }
+
+    fun showNavBar(){
+        button_navigation_bar.visibility = View.VISIBLE
+    }
+
+    fun showSelectedFragment(fragment:Fragment){
         supportFragmentManager.beginTransaction().replace(R.id.frame_layout_navigation_bar,fragment)
+            .addToBackStack("main")
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .commit()
     }

@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.happyroutine.R
+import com.example.happyroutine.ui.activity.Navigation_bar_main
 import kotlinx.android.synthetic.main.fragment_estadisticas_trainning_days.*
 import java.time.LocalDateTime
 import java.util.*
@@ -26,6 +27,8 @@ class EstadisticasTrainningDaysFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val activity: Navigation_bar_main? = activity as Navigation_bar_main?
+        activity?.hideNavBar()
         var view:View=inflater.inflate(R.layout.fragment_estadisticas_trainning_days, container, false)
         val localDate:LocalDateTime= LocalDateTime.now()
         val date:String=localDate.dayOfMonth.toString()+"/"+localDate.monthValue.toString()+"/"+localDate.year.toString()

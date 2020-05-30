@@ -1,54 +1,31 @@
 package com.example.happyroutine.ui.fragment
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
-import android.transition.Slide
-import android.transition.TransitionManager
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ExpandableListView
-import android.widget.LinearLayout
-import android.widget.PopupWindow
+import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
-import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.example.happyroutine.R
 import com.example.happyroutine.ui.activity.ChatLogActivity
-import com.example.happyroutine.ui.activity.ChatMessage
 import com.example.happyroutine.ui.activity.ExpandableAdapter
-import com.example.happyroutine.ui.activity.MainActivity
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
-import kotlinx.android.synthetic.*
-import kotlinx.android.synthetic.main.active_chats_row.*
 import kotlinx.android.synthetic.main.active_chats_row.view.*
 import kotlinx.android.synthetic.main.active_chats_row.view.textView_latest_messages_username
-import kotlinx.android.synthetic.main.activity_user_information.*
-import kotlinx.android.synthetic.main.fragment_diet.*
-import kotlinx.android.synthetic.main.fragment_social_join_platform.*
 import kotlinx.android.synthetic.main.fragment_social_messages.*
-import kotlinx.android.synthetic.main.user_row_new_messages.*
-import kotlinx.android.synthetic.main.user_row_new_messages.view.*
-import kotlinx.android.synthetic.main.user_row_new_messages.view.username_textview_new_message_drawer
-import java.sql.Date
+import kotlinx.android.synthetic.main.fragment_social_messages.view.*
 import java.text.SimpleDateFormat
-import java.util.zip.Inflater
 
 class SocialFragment : Fragment() {
 
@@ -56,7 +33,8 @@ class SocialFragment : Fragment() {
     private val uid = FirebaseAuth.getInstance().currentUser?.uid.toString()
     private var expandableAdapter: ExpandableAdapter? = null
     private var expList: ExpandableListView? = null
-    private val parents = arrayOf("Recommended", "Diet Advice", "Training Advice", "Company")
+    private val parents = arrayOf("Recommended", "Diet Advice (DA)", "Training Advice (TA)", "Company (C)")
+    private val parentsShort = arrayOf("Recommended", "DA", "TA", "C")
     private var mDrawerToggle : ActionBarDrawerToggle? = null
     private var recommendedList = ArrayList<String>()
     private var dietList = ArrayList<String>()
@@ -66,7 +44,6 @@ class SocialFragment : Fragment() {
     private var dietPairList = ArrayList<Pair<String, String>>()
     private var trainerPairList = ArrayList<Pair<String, String>>()
     private var companyPairList = ArrayList<Pair<String, String>>()
-    private var root: View? = null
     private val adapter = GroupAdapter<ViewHolder>()
 
 
@@ -74,14 +51,16 @@ class SocialFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val root: View = inflater.inflate(R.layout.fragment_social_messages, container, false)
+        val usernameTextView = root.username_textview_new_message
+        usernameTextView.text = ""
         // Inflate the layout for this fragment
-        root =  inflater.inflate(R.layout.fragment_social_messages, container, false)
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val usernameTextView = view.findViewById<TextView>(R.id.username_textview_new_message)
         mDrawerToggle = ActionBarDrawerToggle(activity, drawer_layout, social_toolbar, R.string.open, R.string.close)
         mDrawerToggle!!.isDrawerIndicatorEnabled = true
         activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -89,10 +68,11 @@ class SocialFragment : Fragment() {
         social_toolbar.setTitleTextColor(Color.WHITE)
         mDrawerToggle!!.syncState()
         recyclerview_active_chats.adapter = adapter
-
+        username_textview_new_message.text = ""
         expList = exp_list
+        loadProfileImage()
         listenForLatestMessages()
-        setChildren()
+        setChildren(usernameTextView)
 
         adapter.setOnItemClickListener { item, view ->
             val intent = Intent(activity, ChatLogActivity::class.java)
@@ -123,18 +103,23 @@ class SocialFragment : Fragment() {
         ref.addSnapshotListener { value, e ->
             for(doc in value!!){
                 val toId = doc.id
-                val ref2 = FirebaseFirestore.getInstance().collection("/latest-messages/$fromId/$fromId/$toId/$toId")
+
+                val ref2 = FirebaseFirestore.getInstance().collection("/latest-messages/$fromId/$fromId/$toId/$toId").orderBy("timestamp")
 
                 ref2.addSnapshotListener { messageValue, ex ->
-                    val messagesList = ArrayList<Pair<Pair<String, String>, Pair<String, Long>>>()
-                    for(message in messageValue!!){
-                        messagesList.add(Pair(Pair(message.getString("fromId"), message.getString("toId")),
-                            Pair(message.getString("text"), message.getLong("timestamp"))) as Pair<Pair<String, String>, Pair<String, Long>>)
+                    val messagesList =
+                        ArrayList<Pair<Pair<String, String>, Pair<String, Timestamp>>>()
+                    for (message in messageValue!!) {
+                        messagesList.add(
+                            Pair(
+                                Pair(message.getString("fromId"), message.getString("toId")),
+                                Pair(message.getString("text"), message.get("timestamp"))
+                            ) as Pair<Pair<String, String>, Pair<String, Timestamp>>
+                        )
                     }
-                    messagesList.sortBy { it.second.second }
                     db.document(toId)
-                        .get().addOnCompleteListener { task->
-                            if(task.isSuccessful){
+                        .get().addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
                                 val document = task.result
                                 if (document!!.exists()) {
                                     val username = document.get("name").toString().plus(" ")
@@ -142,23 +127,30 @@ class SocialFragment : Fragment() {
                                     val id = toId
                                     val text = messagesList[messagesList.lastIndex].second.first
                                     val format = SimpleDateFormat("HH:mm")
-                                    val hour = format.format(Date(messagesList[messagesList.lastIndex].second.second * 1000))
-
-                                    latestMessagesMap[toId] = LatestMessagesRow(id, username, text, hour)
-                                    refreshRecyclerView()
+                                    if (messagesList[messagesList.lastIndex].second.second != null) {
+                                        val aux = messagesList[messagesList.lastIndex].second.second as Timestamp
+                                        val hour = format.format(aux.toDate())
+                                        latestMessagesMap[toId] = LatestMessagesRow(id, username, text, hour)
+                                        refreshRecyclerView()
+                                    }
+                                    else {
+                                        listenForLatestMessages()
+                                    }
                                 }
                             }
-                    }
+                        }
                 }
             }
         }
     }
 
     @SuppressLint("WrongConstant")
-    private fun setChildren() {
+    private fun setChildren(usernameTextView: TextView) {
         var username: String
         var otherOffers: ArrayList<String>
         var currentNeeds = ArrayList<String>()
+        var testArray = ArrayList<String>()
+        var testUidList = ArrayList<String>()
 
         db.document(uid).get()
             .addOnCompleteListener { task ->
@@ -166,7 +158,9 @@ class SocialFragment : Fragment() {
                     val document = task.result
                     if (document!!.exists()) {
                         currentNeeds = document["needs"] as ArrayList<String>
-                        username_textview_new_message.text = document.get("name").toString().plus(" ")
+                        /*username_textview_new_message.text = document.get("name").toString().plus(" ")
+                            .plus(document.get("surname").toString())*/
+                        usernameTextView.text = document.get("name").toString().plus(" ")
                             .plus(document.get("surname").toString())
                         email_textview_new_message.text = document.get("email").toString()
                     }
@@ -186,6 +180,36 @@ class SocialFragment : Fragment() {
                                     for (i in 0 until otherOffers.size) {
                                         //If so add it to "Recommended", showing which need is covered
                                         if (otherOffers[i] == need) {
+                                            if(document.id in testUidList){
+                                                if(need == "Diet Advice"){
+                                                    testArray[testUidList.indexOf(document.id)] =
+                                                        testArray[testUidList.indexOf(document.id)]
+                                                            .plus(" / ").plus("DA")
+                                                }
+                                                if(need == "Exercise advice"){
+                                                    testArray[testUidList.indexOf(document.id)] =
+                                                        testArray[testUidList.indexOf(document.id)]
+                                                            .plus(" / ").plus("DA")
+                                                }
+                                                if(need == "Company"){
+                                                    testArray[testUidList.indexOf(document.id)] =
+                                                        testArray[testUidList.indexOf(document.id)]
+                                                            .plus(" / ").plus("C")
+                                                }
+
+                                            }
+                                            else{
+                                                testUidList.add(document.id)
+                                                if(need == "Diet Advice"){
+                                                    testArray.add(username.plus(" (DA"))
+                                                }
+                                                if(need == "Exercise advice"){
+                                                    testArray.add(username.plus(" (TA"))
+                                                }
+                                                if(need == "Company"){
+                                                    testArray.add(username.plus(" (C"))
+                                                }
+                                            }
                                             recommendedList.add(username
                                                 .plus(" (").plus(need).plus(")"))
                                             recommendedPairList.add(
@@ -219,10 +243,15 @@ class SocialFragment : Fragment() {
                         trainerPairList.sortBy { it.first }
                         companyList.sort()
                         companyPairList.sortBy { it.first }
+                        testArray.sort()
+                        for(i in 0 until testArray.size){
+                            testArray[i] = testArray[i].plus(")")
+                        }
 
                         //Add all lists to ExpandableListView
                         val childList = ArrayList<ArrayList<String>>()
-                        childList.add(recommendedList)
+                        //childList.add(recommendedList)
+                        childList.add(testArray)
                         childList.add(dietList)
                         childList.add(trainerList)
                         childList.add(companyList)
@@ -237,28 +266,25 @@ class SocialFragment : Fragment() {
                             var usernameChatLog = childList[groupPosition][childPosition]
 
                             if(groupPosition == 0){
-                                if(usernameChatLog.contains(" (Diet Advice)", ignoreCase = true)
+                                /*if(usernameChatLog.contains(" (Diet Advice)", ignoreCase = true)
                                     || usernameChatLog.contains(" (Training Advice)", ignoreCase = true)){
-                                    println("IM IN")
                                     usernameChatLog = usernameChatLog.removeSuffix(" Advice)")
                                     usernameChatLog = usernameChatLog.plus(")")
-                                }
+                                }*/
+                                usernameChatLog = usernameChatLog.substring(0, usernameChatLog.indexOf("(")-1)
 
                                 intent.putExtra(USER_KEY2, recommendedPairList[childPosition].second)
                             }
 
                             if(groupPosition == 1){
-                                usernameChatLog = usernameChatLog.plus(" (Diet)")
                                 intent.putExtra(USER_KEY2, dietPairList[childPosition].second)
                             }
 
                             if(groupPosition == 2){
-                                usernameChatLog = usernameChatLog.plus(" (Training)")
                                 intent.putExtra(USER_KEY2, trainerPairList[childPosition].second)
                             }
 
                             if(groupPosition == 3){
-                                usernameChatLog = usernameChatLog.plus(" (Company)")
                                 intent.putExtra(USER_KEY2, companyPairList[childPosition].second)
                             }
 
@@ -270,6 +296,18 @@ class SocialFragment : Fragment() {
                         }
                     }
             }
+    }
+
+    private fun loadProfileImage(){
+        db.document(uid).get().addOnCompleteListener {
+            if(it.isSuccessful){
+                val doc = it.result
+                if(doc!!.exists()){
+                    val imageUrl = doc["profileImageUrl"]
+                    Picasso.get().load("$imageUrl").into(profile_image_social)
+                }
+            }
+        }
     }
 }
 
@@ -284,6 +322,7 @@ class LatestMessagesRow(private val id: String, private val user: String, privat
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.textView_latest_messages_username.text = user
+        loadProfileImage(viewHolder)
         if(message.length < 20){
             viewHolder.itemView.textView_latest_messages_message.text = message.plus(" (at ")
                 .plus(latestHour).plus(")")
@@ -293,5 +332,18 @@ class LatestMessagesRow(private val id: String, private val user: String, privat
                 .plus("... (at ").plus(latestHour).plus(")")
         }
 
+    }
+
+    private fun loadProfileImage(viewHolder: ViewHolder){
+        val db = FirebaseFirestore.getInstance().collection("users")
+        db.document(id).get().addOnCompleteListener {
+            if(it.isSuccessful){
+                val doc = it.result
+                if(doc!!.exists()){
+                    val imageUrl = doc["profileImageUrl"]
+                    Picasso.get().load("$imageUrl").into(viewHolder.itemView.profile_image_latest_messages)
+                }
+            }
+        }
     }
 }
