@@ -3,15 +3,16 @@ package com.example.happyroutine.ui.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.ActivityInfo
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.happyroutine.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_sign_up.*
+
 
 class sign_up : AppCompatActivity() {
 
@@ -27,7 +28,6 @@ class sign_up : AppCompatActivity() {
         button_signUp.setOnClickListener {
             signUpUser()
         }
-
     }
 
     private fun signUpUser() {
@@ -61,19 +61,36 @@ class sign_up : AppCompatActivity() {
 
         auth.createUserWithEmailAndPassword(tv_text_email.text.toString(), tv_text_password.text.toString())
             .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // If SignUp is succesful, automatically, the user log in
-
+                // If SignUp is succesful, automatically, the user log in
+                if(task.isSuccessful){
+                    Toast.makeText(this, "Sending verification email...", Toast.LENGTH_SHORT).show()
                     auth.signInWithEmailAndPassword(tv_text_email.text.toString(), tv_text_password.text.toString())
                         .addOnCompleteListener(this) { task ->
                             if (task.isSuccessful) {
                                 val user = auth.currentUser
-                                updateUI(user)
-                            } else {
+                                user!!.sendEmailVerification()
+                                    .addOnCompleteListener {
+                                        if (task.isSuccessful) {
+                                            Toast.makeText(
+                                                this,
+                                                "Verify your email and then login",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        } else {
+                                            Toast.makeText(
+                                                this,
+                                                "Error sending verification email",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                                    }
+                            }
+                            else {
                                 Toast.makeText(baseContext, "Something went wrong", Toast.LENGTH_SHORT).show()
                             }
                         }
-                } else {
+                }
+                else {
                     // If sign in fails, display a message to the user.
                     Toast.makeText(baseContext, "Sign Up failed. Try again after some time /n" + task.exception.toString(),
                         Toast.LENGTH_SHORT).show()

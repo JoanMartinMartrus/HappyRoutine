@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.happyroutine.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_user_information.*
 import kotlinx.android.synthetic.main.fragment_social_join_platform.*
 
 class SocialJoinPlatform : Fragment() {
@@ -39,7 +38,7 @@ class SocialJoinPlatform : Fragment() {
             }
         }
         button_join_platform.setOnClickListener {
-            if((offerCompanyCheckbox2.isChecked || offerDietAdviceCheckbox2.isChecked || offerCompanyCheckbox2.isChecked)
+            if((offerCompanyCheckbox2.isChecked || offerDietAdviceCheckbox2.isChecked || offerExerciseAdviceCheckbox2.isChecked)
                 && (needsCompanyCheckbox2.isChecked || needsDietAdviceCheckbox2.isChecked || needsExerciseAdviceCheckbox2.isChecked)){
                 val offer = getOffer()
                 val needs = getNeeds()
