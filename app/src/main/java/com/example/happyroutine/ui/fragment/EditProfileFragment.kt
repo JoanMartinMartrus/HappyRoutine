@@ -76,14 +76,24 @@ class EditProfileFragment : Fragment() {
         }
         delete_profile.setOnClickListener {
             activity.let {
-                db.document(uid).delete()
-                FirebaseAuth.getInstance().currentUser!!.delete()
-                FirebaseAuth.getInstance().signOut()
-                val intent = Intent(it, MainActivity::class.java)
-                it?.startActivity(intent)
+                val fragmentActivity = it
+                //Deletes user messages
+                FirebaseFirestore.getInstance().collection("user-messages").document(uid).delete()
+                FirebaseFirestore.getInstance().collection("latest-messages")
+                    .document(uid).collection(uid).get().addOnSuccessListener {
+                        for(doc in it){
+                            FirebaseFirestore.getInstance().collection("latest-messages")
+                                .document(doc.id).collection(doc.id).document(uid).delete()
+                        }
+                        //Deletes user profile and account
+                        db.document(uid).delete()
+                        FirebaseAuth.getInstance().currentUser!!.delete()
+                        FirebaseAuth.getInstance().signOut()
+                        val intent = Intent(fragmentActivity, MainActivity::class.java)
+                        fragmentActivity?.startActivity(intent)
+                    }
             }
         }
-
     }
 
     private fun uploadImageToDatabase(){

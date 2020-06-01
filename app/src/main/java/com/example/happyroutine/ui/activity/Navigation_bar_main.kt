@@ -1,10 +1,8 @@
 package com.example.happyroutine.ui.activity
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -24,7 +22,6 @@ class Navigation_bar_main : AppCompatActivity()  {
         super.onCreate(savedInstanceState)
 
         AppData.initData()
-
 
         setContentView(R.layout.activity_navigation_bar_main)
         showSelectedFragment(EditProfileFragment());

@@ -10,8 +10,6 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreSettings
-import com.google.firebase.messaging.FirebaseMessaging
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
@@ -37,11 +35,11 @@ class ChatLogActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         listenForMessages()
+
         button_send_chat_log.setOnClickListener {
             if(editText_chat_log.text.trim().toString().isNotEmpty()){
                 sendMessage()
             }
-
         }
 
         toolbar_chat_log.setNavigationOnClickListener{

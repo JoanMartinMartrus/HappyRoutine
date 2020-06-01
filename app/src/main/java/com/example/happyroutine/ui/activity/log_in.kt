@@ -5,19 +5,19 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import com.example.happyroutine.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_log_in.*
 
 
 class log_in : AppCompatActivity() {
     lateinit var auth: FirebaseAuth
+    private var isNewUser: Boolean = false
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,23 +25,29 @@ class log_in : AppCompatActivity() {
         requestedOrientation= ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(R.layout.activity_log_in)
         auth = FirebaseAuth.getInstance()
+        checkNewUser()
     }
 
     public override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         checkBox_keepMeLoggedIn.isChecked = loadCheckBox(checkBox_keepMeLoggedIn.text.toString())
-        if(checkBox_keepMeLoggedIn.isChecked) {
+        if(checkBox_keepMeLoggedIn.isChecked && isNewUser) {
             val currentUser = auth.currentUser
             updateUI(currentUser)
         }
     }
 
     private fun updateUI(currentUser : FirebaseUser?){
-        if(currentUser != null){
-            // Register for the user type notifications
-            startActivity(Intent(this, Navigation_bar_main::class.java))
-            finish()
+        if(currentUser != null && currentUser.isEmailVerified){
+            if(!isNewUser){
+                startActivity(Intent(this, Navigation_bar_main::class.java))
+                finish()
+            }
+            else{
+                startActivity(Intent(this, user_information::class.java))
+                finish()
+            }
         }
     }
 
@@ -69,8 +75,14 @@ class log_in : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-                    updateUI(user)
-                } else {
+                    if(user!!.isEmailVerified){
+                        updateUI(user)
+                    }
+                    else{
+                        Toast.makeText(this, "Verify your email", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                else {
                     Toast.makeText(baseContext, "Login failed. User not found", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -97,5 +109,15 @@ class log_in : AppCompatActivity() {
     fun loadCheckBox(key: String):Boolean{
         val sharedpreferences = getPreferences(Context.MODE_PRIVATE)
         return sharedpreferences.getBoolean(key, false)
+    }
+
+    private fun checkNewUser(){
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if(currentUser != null){
+            FirebaseFirestore.getInstance().collection("users").document(currentUser.uid).get()
+                .addOnSuccessListener {
+                    isNewUser = !it.exists()
+                }
+        }
     }
 }
