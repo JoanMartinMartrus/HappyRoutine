@@ -67,7 +67,7 @@ class EditUserInformation : AppCompatActivity() {
                     val birthday = document["birthday"] as Timestamp
                     val format = SimpleDateFormat("dd / MM / yyyy")
                     edit_text_birthday2.text = Editable.Factory.getInstance().newEditable(format.format(birthday.toDate()).toString())
-                    edit_text_height2.text = Editable.Factory.getInstance().newEditable(document["height"].toString())
+                    edit_text_height2.text = Editable.Factory.getInstance().newEditable(String.format("%.1f", document["height"]))
                     db.document(uid).collection("weight").document("weight").get()
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
@@ -75,7 +75,7 @@ class EditUserInformation : AppCompatActivity() {
                                 if (document!!.exists()) {
                                     val weightEntries = document["weightEntries"] as ArrayList<Float>
                                     edit_text_weight2.text = Editable.Factory.getInstance()
-                                        .newEditable(weightEntries[weightEntries.lastIndex].toInt().toString())
+                                        .newEditable(String.format("%.1f", weightEntries[weightEntries.lastIndex]))
                                 }
                             }
                         }
@@ -167,8 +167,6 @@ class EditUserInformation : AppCompatActivity() {
         val day = edit_text_birthday2.text.toString().split("/")[0].trim().toInt()
         val month = edit_text_birthday2.text.toString().split("/")[1].trim().toInt() - 1 // January is 0
         val year = edit_text_birthday2.text.toString().split("/")[2].trim().toInt()
-        print("UPDATED YEAR: ")
-        println(year)
         val date = Date((year-1900), month, day)
         val location = edit_text_location2.text.toString()
         val height = edit_text_height2.text.toString().toFloat()
@@ -331,7 +329,7 @@ class EditUserInformation : AppCompatActivity() {
         if (edit_text_height2.text.toString().isNotEmpty()) {
             val number = edit_text_height2.text.toString().toFloatOrNull()
             if(number == null){
-                edit_text_height2.error = "Please a number"
+                edit_text_height2.error = "Please enter a number"
                 edit_text_height2.requestFocus()
                 return false
             }
@@ -346,7 +344,7 @@ class EditUserInformation : AppCompatActivity() {
         if (edit_text_weight2.text.toString().isNotEmpty()) {
             val number = edit_text_weight2.text.toString().toFloatOrNull()
             if(number == null){
-                edit_text_weight2.error = "Please a number"
+                edit_text_weight2.error = "Please enter a number"
                 edit_text_weight2.requestFocus()
                 return false
             }

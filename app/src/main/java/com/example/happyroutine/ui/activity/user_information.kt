@@ -238,7 +238,7 @@ class user_information : AppCompatActivity() {
         if (edit_text_height.text.toString().isNotEmpty()) {
             val number = edit_text_height.text.toString().toFloatOrNull()
             if(number == null){
-                edit_text_height.error = "Please a number"
+                edit_text_height.error = "Please enter a number"
                 edit_text_height.requestFocus()
                 return false
             }
@@ -253,7 +253,7 @@ class user_information : AppCompatActivity() {
         if (edit_text_weight.text.toString().isNotEmpty()) {
             val number = edit_text_weight.text.toString().toFloatOrNull()
             if(number == null){
-                edit_text_weight.error = "Please a number"
+                edit_text_weight.error = "Please enter a number"
                 edit_text_weight.requestFocus()
                 return false
             }
