@@ -32,7 +32,7 @@ class log_in : AppCompatActivity() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         checkBox_keepMeLoggedIn.isChecked = loadCheckBox(checkBox_keepMeLoggedIn.text.toString())
-        if(checkBox_keepMeLoggedIn.isChecked && isNewUser) {
+        if(checkBox_keepMeLoggedIn.isChecked && !isNewUser) {
             val currentUser = auth.currentUser
             updateUI(currentUser)
         }
