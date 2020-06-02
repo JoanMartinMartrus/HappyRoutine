@@ -56,6 +56,12 @@ class EstadisticasWeightFragment : Fragment() {
             weightEntry.requestFocus()
             return
         }
+        val input = weightEntry.text.toString().toFloatOrNull()
+        if(input == null){
+            weightEntry.error = "Please, enter a number"
+            weightEntry.requestFocus()
+            return
+        }
         //Get new weight & date entries from the database
         db.document(uid).collection("weight").document("weight").get()
             .addOnCompleteListener { task ->
