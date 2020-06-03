@@ -19,18 +19,24 @@ object AppData {
 
     var user: User = User()
     var foodList : List<Food> = mutableListOf()
+    var allFoodList : List<Food> = mutableListOf()
     var recomendation: Recomendation = Recomendation()
 
 
     fun initData() {
         var uid = FirebaseAuth.getInstance().currentUser?.uid
-        // TODO check if uid is not null
+
+        foodDb.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                allFoodList = task.result!!.toObjects(Food::class.java)
+            }
+        }
 
         // init user
         var query = userDb.whereEqualTo("uid", uid)
         query.get().addOnCompleteListener() {task ->
             if (task.isSuccessful) {
-                for (doc in task.result!!.documents) { //TODO correct !!
+                for (doc in task.result!!.documents) {
                     user.uid = doc.get("uid").toString()
                     user.name = doc.get("name").toString()
                     user.surname = doc.get("surname").toString()
