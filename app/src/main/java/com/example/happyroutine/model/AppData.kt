@@ -18,8 +18,9 @@ object AppData {
 
 
     var user: User = User()
-    var foodList : List<Food> = mutableListOf()
+    var foodList : MutableList<Food> = mutableListOf()
     var allFoodList : List<Food> = mutableListOf()
+    var dontWantFood : MutableList<Food> = mutableListOf()
     var recomendation: Recomendation = Recomendation()
 
 
@@ -95,7 +96,31 @@ object AppData {
 
     }
 
-    private fun filterFood(user: User): List<Food> {
+    fun updateFoodList(checked: List<String>, unchecked: List<String>) {
+        var foodToUpdate = mutableListOf<Food>()
+        for (food in foodList) {
+            if (food.name in checked) {
+                Log.i("updating---->", food.name)
+                foodToUpdate.add(food)
+                Log.i("updating---->", dontWantFood.toString())
+            }
+        }
+        dontWantFood.addAll(foodToUpdate)
+        foodList.removeAll(foodToUpdate)
+        Log.i("UPDATING---->", dontWantFood.toString())
+        foodToUpdate = mutableListOf()
+
+        for (food in dontWantFood) {
+            if (food.name in unchecked) {
+                foodToUpdate.add(food)
+            }
+        }
+
+        foodList.addAll(foodToUpdate)
+        dontWantFood.removeAll(foodToUpdate)
+    }
+
+    private fun filterFood(user: User): MutableList<Food> {
         var finalList = mutableListOf<Food>()
 
         var objectiveFoodList = mutableListOf<Food>()
