@@ -10,9 +10,11 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.fragment.app.FragmentTransaction
 
 import com.example.happyroutine.R
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_exercices.*
@@ -23,6 +25,7 @@ import kotlinx.android.synthetic.main.fragment_exercices.*
 class ExercicesFragment : Fragment() {
 
     lateinit var db : CollectionReference
+    var users =FirebaseFirestore.getInstance().collection("users")
    // var fullBody:ArrayList<String> = ArrayList()
    lateinit var recommended: ArrayAdapter<String>
     lateinit var favourites: ArrayAdapter<String>
@@ -35,6 +38,8 @@ class ExercicesFragment : Fragment() {
     lateinit var buttocks: ArrayAdapter<String>
     lateinit var cardio: ArrayAdapter<String>
     lateinit var fullBody: ArrayAdapter<String>
+    var level="BEGINNER"
+    var objective="Lose weight"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +48,11 @@ class ExercicesFragment : Fragment() {
         val view:View=inflater.inflate(R.layout.fragment_exercices, container, false)
 
         db= FirebaseFirestore.getInstance().collection("exerciseOrStretching")
+
+        getUser()
+
+        var text: TextView =view.findViewById(R.id.level)
+        text.text=level
 
         paintScreen(view)
         // Inflate the layout for this fragment
@@ -57,7 +67,7 @@ class ExercicesFragment : Fragment() {
                 if(position!=0){
                     fragmentManager?.let {
                         it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowExerciceFragment(recommended.getItem(position).toString()))
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack("exercise").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .commit()
                     }
                 }
@@ -69,7 +79,7 @@ class ExercicesFragment : Fragment() {
                 if(position!=0){
                     fragmentManager?.let {
                         it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowExerciceFragment(favourites.getItem(position).toString()))
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack("exercise").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .commit()
                     }
                 }
@@ -81,7 +91,7 @@ class ExercicesFragment : Fragment() {
                 if(position!=0){
                     fragmentManager?.let {
                         it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowExerciceFragment(stretching.getItem(position).toString()))
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack("exercise").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .commit()
                     }
                 }
@@ -93,7 +103,7 @@ class ExercicesFragment : Fragment() {
                 if(position!=0){
                     fragmentManager?.let {
                         it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowExerciceFragment(abds.getItem(position).toString()))
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack("exercise").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .commit()
                     }
                 }
@@ -105,7 +115,7 @@ class ExercicesFragment : Fragment() {
                 if(position!=0){
                     fragmentManager?.let {
                         it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowExerciceFragment(arms.getItem(position).toString()))
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack("exercise").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .commit()
                     }
                 }
@@ -117,7 +127,7 @@ class ExercicesFragment : Fragment() {
                 if(position!=0){
                     fragmentManager?.let {
                         it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowExerciceFragment(legs.getItem(position).toString()))
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack("exercise").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .commit()
                     }
                 }
@@ -129,7 +139,7 @@ class ExercicesFragment : Fragment() {
                 if(position!=0){
                     fragmentManager?.let {
                         it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowExerciceFragment(buttocks.getItem(position).toString()))
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack("exercise").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .commit()
                     }
                 }
@@ -141,7 +151,7 @@ class ExercicesFragment : Fragment() {
                 if(position!=0){
                     fragmentManager?.let {
                         it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowExerciceFragment(chest.getItem(position).toString()))
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack("exercise").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .commit()
                     }
                 }
@@ -153,7 +163,7 @@ class ExercicesFragment : Fragment() {
                 if(position!=0){
                     fragmentManager?.let {
                         it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowExerciceFragment(back.getItem(position).toString()))
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack("exercise").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .commit()
                     }
                 }
@@ -165,7 +175,7 @@ class ExercicesFragment : Fragment() {
                 if(position!=0){
                     fragmentManager?.let {
                         it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowExerciceFragment(cardio.getItem(position).toString()))
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack("exercise").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .commit()
                     }
                 }
@@ -177,7 +187,7 @@ class ExercicesFragment : Fragment() {
                 if(position!=0){
                     fragmentManager?.let {
                         it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowExerciceFragment(fullBody.getItem(position).toString()))
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack("exercise").setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                             .commit()
                     }
                 }
@@ -186,9 +196,21 @@ class ExercicesFragment : Fragment() {
     }
 
     private fun getQueryWhere(id_spinner:Int, title_spinner:String, view:View, name:String, db: CollectionReference,adapter: ArrayAdapter<String>) {
-        if(title_spinner.equals("Recommended")){ //TODO:PERSONALIZAR EL RECOMENDED
+        if(title_spinner.equals("Recommended")){
             val spinner: Spinner = view.findViewById(id_spinner)
             adapter.add(title_spinner)
+            db.whereEqualTo("objectives", objective).whereEqualTo("level",level).get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
+                        adapter.add(document.get("name").toString())
+                        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown)
+                        spinner.adapter = adapter
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(ContentValues.TAG, "Error getting documents: ", exception)
+                }
             adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown)
             spinner.adapter = adapter
         }else if(title_spinner.equals("My Favourites")){
@@ -286,6 +308,29 @@ class ExercicesFragment : Fragment() {
             R.layout.custom_spinner
         )
         getQueryWhere(R.id.FullBody,"Full Body",view,"FULLBODY",db,fullBody)
+    }
+
+    fun getUser() {
+        users.whereEqualTo("uid", FirebaseAuth.getInstance().currentUser?.uid).get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    /*  val currentLevel = document.get("level").toString()
+                      if (currentLevel.equals("INTERMEDIATE")) {
+                          this.level = "INTERMEDIATE"
+                      }
+                      if (currentLevel.equals("ADVANCED")) {
+                          this.level = "ADVANCED"
+                      }
+                      if (currentLevel.equals("EXPERT")) {
+                          this.level = "EXPERT"
+                      }*/
+                    objective = document.get("objective").toString()
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(ContentValues.TAG, "Error getting documents: ", exception)
+            }
+
     }
 
 
