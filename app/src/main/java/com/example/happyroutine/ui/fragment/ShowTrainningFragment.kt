@@ -2,11 +2,11 @@ package com.example.happyroutine.ui.fragment
 
 import android.content.ContentValues
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.CheckBox
+import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -15,6 +15,7 @@ import com.example.happyroutine.R
 import com.example.happyroutine.model.Trainning
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import io.grpc.Context
 import kotlinx.android.synthetic.main.fragment_show_exercice.checkBox
 import kotlinx.android.synthetic.main.fragment_show_trainning.*
 
@@ -44,6 +45,11 @@ class ShowTrainningFragment ( val name: String) : Fragment() {
         var view:View= inflater.inflate(R.layout.fragment_show_trainning, container, false)
         db= FirebaseFirestore.getInstance().collection("Trainning")
         getTrainning(name,view)
+        var fragment:FrameLayout=view.findViewById(R.id.exercise)
+        val displayMetrics = DisplayMetrics()
+        activity?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
+        var height = displayMetrics.heightPixels
+        fragment.layoutParams.height=height-(1280)
         // Inflate the layout for this fragment
         return view
     }
@@ -52,14 +58,14 @@ class ShowTrainningFragment ( val name: String) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
             trainning?.favourite =checkBox.isChecked
-            trainning?.let { setAndSaveData(it) }
+            trainning?.let { update() }
         }
         previous.setOnClickListener {
-            if((currentExercice-1)>0){
+            if((currentExercice-1)>=0){
                 currentExercice--
                 changeExercici()
             }else{
-                Toast.makeText(view.context,"It have not previous", Toast.LENGTH_LONG).show()
+                Toast.makeText(view.context,"there is not previous", Toast.LENGTH_SHORT).show()
             }
         }
         next.setOnClickListener {
@@ -67,7 +73,7 @@ class ShowTrainningFragment ( val name: String) : Fragment() {
                 currentExercice++
                 changeExercici()
             }else{
-                Toast.makeText(view.context,"It have not next", Toast.LENGTH_LONG).show()
+                Toast.makeText(view.context,"there is not next", Toast.LENGTH_SHORT).show()
             }
         }
         hacer.setOnClickListener {
@@ -121,17 +127,8 @@ class ShowTrainningFragment ( val name: String) : Fragment() {
             .commit()
     }
 
-    private fun setAndSaveData(trainning: Trainning){
-        val data = hashMapOf(
-            "name" to trainning.name,
-            "advice" to trainning.advice,
-            "favourite" to trainning.favourite,
-            "isDone" to trainning.isDone,
-            "level" to trainning.level,
-            "exercises" to trainning.exercises,
-            "objectives" to trainning.objectives
-        )
-        db.document(trainning.id).set(data)
+    private fun update(){
+        db.document(trainning.id).update("favourite", trainning.favourite)
     }
 
 }

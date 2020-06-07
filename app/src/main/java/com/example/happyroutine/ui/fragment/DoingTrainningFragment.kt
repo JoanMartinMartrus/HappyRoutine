@@ -1,26 +1,26 @@
 package com.example.happyroutine.ui.fragment
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.FragmentTransaction
 
 import com.example.happyroutine.R
 import com.example.happyroutine.model.Trainning
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.type.Date
 import kotlinx.android.synthetic.main.fragment_doing_trainning.*
 import java.time.LocalDate
-import java.util.*
 import kotlin.collections.ArrayList
 
 /**
@@ -41,9 +41,7 @@ class DoingTrainningFragment  ( val name: String) : Fragment() {
             ""
         )
     var currentExercice:Int=0
-    private val user = FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
-    private val randomID:UUID= UUID.randomUUID()
-
+    lateinit var user : DocumentReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,9 +49,15 @@ class DoingTrainningFragment  ( val name: String) : Fragment() {
     ): View? {
         var view:View= inflater.inflate(R.layout.fragment_doing_trainning, container, false)
         db= FirebaseFirestore.getInstance().collection("Trainning")
+        user= FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
         getTrainning(name,view)
         val button: Button =view.findViewById(R.id.done)
         button.visibility=View.INVISIBLE
+        var fragment: FrameLayout =view.findViewById(R.id.exercise)
+        val displayMetrics = DisplayMetrics()
+        activity?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
+        var height = displayMetrics.heightPixels
+        fragment.layoutParams.height=height-(1000)
         // Inflate the layout for this fragment
         return view
     }
@@ -63,14 +67,14 @@ class DoingTrainningFragment  ( val name: String) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
             trainning?.favourite =checkBox.isChecked
-            trainning?.let { setAndSaveData() }
+            trainning?.let { update() }
         }
         previous.setOnClickListener {
-            if((currentExercice-1)>0){
+            if((currentExercice-1)>=0){
                 currentExercice--
                 changeExercici()
             }else{
-                Toast.makeText(view.context,"It have not previous", Toast.LENGTH_LONG).show()
+                Toast.makeText(view.context,"there is not previous", Toast.LENGTH_SHORT).show()
             }
         }
         next.setOnClickListener {
@@ -82,12 +86,12 @@ class DoingTrainningFragment  ( val name: String) : Fragment() {
                 progressBar2.progress=currentExercice+1
                 val button: Button =view.findViewById(R.id.done)
                 button.visibility=View.VISIBLE
-                Toast.makeText(view.context,"It have not next", Toast.LENGTH_LONG).show()
+                Toast.makeText(view.context,"there is not next", Toast.LENGTH_SHORT).show()
             }
         }
         done.setOnClickListener {
             trainning.isDone=true
-            setAndSaveData()
+            update()
             setAndSaveTrainning()
             fragmentManager?.let {
                 it.beginTransaction().replace(R.id.frame_layout_navigation_bar,TrainningFragment())
@@ -135,26 +139,23 @@ class DoingTrainningFragment  ( val name: String) : Fragment() {
             .commit()
     }
 
-    private fun setAndSaveData(){
-        val data = hashMapOf(
-            "name" to trainning.name,
-            "advice" to trainning.advice,
-            "favourite" to trainning.favourite,
-            "isDone" to trainning.isDone,
-            "level" to trainning.level,
-            "exercises" to trainning.exercises,
-            "objectives" to trainning.objectives
-        )
-        db.document(trainning.id).set(data)
+    private fun update(){
+        db.document(trainning.id).update("favourite", trainning.favourite)
     }
 
     private fun setAndSaveTrainning(){
         val data = hashMapOf(
             "name" to trainning.name,
-            "date" to LocalDate.now()
+            "year" to LocalDate.now().year,
+            "month" to LocalDate.now().monthValue,
+            "day" to LocalDate.now().dayOfMonth
         )
-        //TODO guaradar en la collecion del user los datos
-       // user.collection("trainningData").add(data)
+        user.collection("trainningData").add(data).addOnSuccessListener { documentReference ->
+                Log.d(TAG, "DocumentSnapshot written with ID: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error adding document", e)
+            }
     }
 
 }

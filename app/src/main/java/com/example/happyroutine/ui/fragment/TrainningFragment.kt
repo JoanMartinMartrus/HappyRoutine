@@ -111,9 +111,8 @@ class TrainningFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if(position!=0){
                     fragmentManager?.let {
-                        it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowTrainningFragment(expert.getItem(position).toString()))
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                            .commit()
+                        it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowTrainningFragment(expert.getItem(position).toString())).addToBackStack("Trainning")
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit()
                     }
                 }
             }
@@ -121,9 +120,8 @@ class TrainningFragment : Fragment() {
 
         view_all_exercices.setOnClickListener {
             fragmentManager?.let {
-                it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ExercicesFragment())
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .commit()
+                it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ExercicesFragment()).addToBackStack("Trainning")
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit()
             }
         }
 
@@ -142,7 +140,6 @@ class TrainningFragment : Fragment() {
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
                         Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
-                        // fullBody.add(document.get("name").toString())
                         adapter.add(document.get("name").toString())
                         adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown)
                         spinner.adapter = adapter
@@ -151,7 +148,7 @@ class TrainningFragment : Fragment() {
                 .addOnFailureListener { exception ->
                     Log.w(ContentValues.TAG, "Error getting documents: ", exception)
                 }
-            adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown)//sobrara cuando
+            adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown)
             spinner.adapter = adapter
         }else {
             val spinner: Spinner = view.findViewById(id_spinner)
