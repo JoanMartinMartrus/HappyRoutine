@@ -9,11 +9,15 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.happyroutine.R
+import com.example.happyroutine.model.AppData
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.fragment_show_exercice.*
 import kotlinx.android.synthetic.main.fragment_trainning.*
 
 
@@ -22,13 +26,15 @@ import kotlinx.android.synthetic.main.fragment_trainning.*
  */
 class TrainningFragment : Fragment() {
     lateinit var db : CollectionReference
-    // var fullBody:ArrayList<String> = ArrayList()
+    var users =FirebaseFirestore.getInstance().collection("users")
     lateinit var recommended: ArrayAdapter<String>
     lateinit var favourites: ArrayAdapter<String>
     lateinit var beginner: ArrayAdapter<String>
     lateinit var intermediate: ArrayAdapter<String>
     lateinit var advanced: ArrayAdapter<String>
     lateinit var expert: ArrayAdapter<String>
+    var level="BEGINNER"
+    var objective="Lose weight"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,8 +42,12 @@ class TrainningFragment : Fragment() {
     ): View? {
         val view:View=inflater.inflate(R.layout.fragment_trainning, container, false)
 
-
         db= FirebaseFirestore.getInstance().collection("Trainning")
+
+        getUser()
+
+        var text:TextView=view.findViewById(R.id.level)
+        text.text=level
 
         paintScreen(view)
         // Inflate the layout for this fragment
@@ -51,9 +61,8 @@ class TrainningFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if(position!=0){
                     fragmentManager?.let {
-                        it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowTrainningFragment(recommended.getItem(position).toString()))
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                            .commit()
+                        it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowTrainningFragment(recommended.getItem(position).toString())).addToBackStack("Trainning")
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit()
                     }
                 }
             }
@@ -63,9 +72,8 @@ class TrainningFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if(position!=0){
                     fragmentManager?.let {
-                        it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowTrainningFragment(favourites.getItem(position).toString()))
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                            .commit()
+                        it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowTrainningFragment(favourites.getItem(position).toString())).addToBackStack("Trainning")
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit()
                     }
                 }
             }
@@ -75,9 +83,8 @@ class TrainningFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if(position!=0){
                     fragmentManager?.let {
-                        it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowTrainningFragment(beginner.getItem(position).toString()))
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                            .commit()
+                        it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowTrainningFragment(beginner.getItem(position).toString())).addToBackStack("Trainning")
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit()
                     }
                 }
             }
@@ -87,9 +94,8 @@ class TrainningFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if(position!=0){
                     fragmentManager?.let {
-                        it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowTrainningFragment(intermediate.getItem(position).toString()))
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                            .commit()
+                        it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowTrainningFragment(intermediate.getItem(position).toString())).addToBackStack("Trainning")
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit()
                     }
                 }
             }
@@ -99,9 +105,8 @@ class TrainningFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if(position!=0){
                     fragmentManager?.let {
-                        it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowTrainningFragment(advanced.getItem(position).toString()))
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                            .commit()
+                        it.beginTransaction().replace(R.id.frame_layout_navigation_bar,ShowTrainningFragment(advanced.getItem(position).toString())).addToBackStack("Trainning")
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit()
                     }
                 }
             }
@@ -128,9 +133,21 @@ class TrainningFragment : Fragment() {
     }
 
     private fun getQueryWhere(id_spinner:Int, title_spinner:String, view:View, level:String, db: CollectionReference,adapter: ArrayAdapter<String>) {
-        if(title_spinner.equals("Recommended")){ //TODO:PERSONALIZAR EL RECOMENDED
+        if(title_spinner.equals("Recommended")){
             val spinner: Spinner = view.findViewById(id_spinner)
             adapter.add(title_spinner)
+            db.whereEqualTo("objectives", objective).whereEqualTo("level",this.level).get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
+                        adapter.add(document.get("name").toString())
+                        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown)
+                        spinner.adapter = adapter
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(ContentValues.TAG, "Error getting documents: ", exception)
+                }
             adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown)
             spinner.adapter = adapter
         }else if(title_spinner.equals("My Favourites")){
@@ -170,6 +187,30 @@ class TrainningFragment : Fragment() {
         }
     }
 
+    fun getUser() {
+        users.whereEqualTo("uid", FirebaseAuth.getInstance().currentUser?.uid).get()
+            .addOnSuccessListener { documents ->
+               for (document in documents) {
+                      /*  val currentLevel = document.get("level").toString()
+                        if (currentLevel.equals("INTERMEDIATE")) {
+                            this.level = "INTERMEDIATE"
+                        }
+                        if (currentLevel.equals("ADVANCED")) {
+                            this.level = "ADVANCED"
+                        }
+                        if (currentLevel.equals("EXPERT")) {
+                            this.level = "EXPERT"
+                        }*/
+                        objective = document.get("objective").toString()
+                    }
+                }
+            .addOnFailureListener { exception ->
+                Log.w(ContentValues.TAG, "Error getting documents: ", exception)
+            }
+
+    }
+
+
     fun paintScreen(view:View){
         recommended= ArrayAdapter<String>(
             view.context,
@@ -202,6 +243,8 @@ class TrainningFragment : Fragment() {
         )
         getQueryWhere(R.id.expert_spinner,"Expert",view,"EXPERT",db,expert)
     }
+
+
 
 
 }
