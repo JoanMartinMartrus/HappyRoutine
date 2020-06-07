@@ -40,106 +40,13 @@
             android:layout_height="400dp">
 
             <LinearLayout
+                android:id="@+id/food_linear_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_weight="1">
 
-                <CheckBox
-                    android:id="@+id/dairy"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="DAIRY" />
-                <View
-                    android:id="@+id/betwenchexkboxes1"
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
-                <CheckBox
-                    android:id="@+id/MEAT"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="MEAT" />
-                <View
-                    android:id="@+id/betwenchexkboxes2"
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
-                <CheckBox
-                    android:id="@+id/FISH"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="FISH" />
-                <View
-                    android:id="@+id/betwenchexkboxes3"
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
-                <CheckBox
-                    android:id="@+id/SHELLFISH"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="SHELLFISH" />
-                <View
-                    android:id="@+id/betwenchexkboxes4"
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
-                <CheckBox
-                    android:id="@+id/EGGS"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="EGGS" />
-                <View
-                    android:id="@+id/betwenchexkboxes5"
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
-                <CheckBox
-                    android:id="@+id/LEGUMES"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="LEGUMES" />
-                <View
-                    android:id="@+id/betwenchexkboxes6"
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
-                <CheckBox
-                    android:id="@+id/VEGETABLE"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="VEGETABLE" />
-                <View
-                    android:id="@+id/betwenchexkboxes7"
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
-                <CheckBox
-                    android:id="@+id/FRUIT"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="FRUIT" />
-                <View
-                    android:id="@+id/betwenchexkboxes8"
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
-                <CheckBox
-                    android:id="@+id/NUT"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="NUT" />
-                <View
-                    android:id="@+id/betwenchexkboxes9"
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
-                <CheckBox
-                    android:id="@+id/GREENS"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="GREENS" />
-                <View
-                    android:id="@+id/betwenchexkboxes10"
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp" />
-                <CheckBox
-                    android:id="@+id/CEREAL"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="CEREAL" />
+
 
             </LinearLayout>
 
