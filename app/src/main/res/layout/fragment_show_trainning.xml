@@ -68,11 +68,6 @@
             android:checked="false"
             android:text="Favourite" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp" />
-
-
 
         <View
             android:layout_width="match_parent"
@@ -150,12 +145,12 @@
             android:layout_height="15dp" />
         <Button
             android:id="@+id/hacer"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="50dp"
             android:background="@drawable/rounded_button"
             android:textColor="@color/white"
             android:layout_weight="1"
-            android:layout_gravity="center"
+            android:layout_gravity="center|bottom"
             android:text="@string/go_for_it" />
 
     </LinearLayout>
